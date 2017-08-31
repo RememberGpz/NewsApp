@@ -3,7 +3,10 @@ package com.example.remember.newsapp.main.widget;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private NavigationView nv;
     private MainPresenterImpl mainPresenterImpl;
     private DrawerLayout dl;
+    private ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +41,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("NewsApp");
-
         dl = (DrawerLayout)findViewById(R.id.dl);
+        toggle = new ActionBarDrawerToggle(this,dl,toolbar,R.string.drawer_open,R.string.drawer_close);
+        toggle.syncState();
+        dl.setDrawerListener(toggle);
+
         nv = (NavigationView)findViewById(R.id.nv);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -48,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 return true;
             }
         });
+        toolbar.setNavigationIcon(R.drawable.menu);
+
+        switchNews();
     }
 
 
@@ -64,12 +75,16 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void onBackPressed() {
-        if (System.currentTimeMillis()-currentTime<2000){
-            this.finish();
-            System.exit(0);
+        if (dl.isDrawerOpen(GravityCompat.START)){
+            dl.closeDrawers();
         }else {
-            currentTime = System.currentTimeMillis();
-            Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+            if (System.currentTimeMillis()-currentTime<2000){
+                this.finish();
+                System.exit(0);
+            }else {
+                currentTime = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
