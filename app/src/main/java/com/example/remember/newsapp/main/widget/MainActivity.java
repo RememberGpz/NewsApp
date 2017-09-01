@@ -9,17 +9,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.about.widget.AboutActivity;
+import com.example.remember.newsapp.beans.Picture;
 import com.example.remember.newsapp.main.presenter.MainPresenterImpl;
 import com.example.remember.newsapp.main.view.MainView;
 import com.example.remember.newsapp.news.widget.NewsFragment;
 import com.example.remember.newsapp.picture.widget.PictureFragment;
 import com.example.remember.newsapp.weather.widget.WeatherFragment;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -77,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements MainView{
             dl.closeDrawers();
         }else {
             if (System.currentTimeMillis()-currentTime<2000){
+                List<Picture> list = DataSupport.findAll(Picture.class);
+                if (list.size()>0){
+                    Log.i("MainActivity==",String.valueOf(list.size()));
+                    list.clear();
+                    Log.i("MainActivity==",String.valueOf(list.size()));
+                }
+
                 this.finish();
                 System.exit(0);
             }else {

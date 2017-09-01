@@ -1,0 +1,9 @@
+<litepal>
+    <dbname value="NewsApp"/>
+    <version value="1"/>
+
+    <list>
+        <mapping class="com.example.remember.newsapp.beans.Picture"/>
+    </list>
+
+</litepal>

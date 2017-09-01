@@ -1,6 +1,7 @@
 package com.example.remember.newsapp.picture.view;
 
-import com.example.remember.newsapp.picture.bean.Picture;
+
+import com.example.remember.newsapp.beans.Picture;
 
 import java.util.List;
 
