@@ -24,6 +24,11 @@ public class NewsFragment extends Fragment {
     private TabLayout tabLayout ;
     private ViewPager viewPager;
 
+    private static final int HEAD = 1;
+    private static final int NBA = 2;
+    private static final int CAR = 3;
+    private static final int JOKE = 4;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,16 +47,16 @@ public class NewsFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager){
         MyAdapter adapter =new MyAdapter(getChildFragmentManager());
-        adapter.addFragment(new Fragment(),"头条");
-        adapter.addFragment(new Fragment(),"NBA");
-        adapter.addFragment(new Fragment(),"汽车");
-        adapter.addFragment(new Fragment(),"笑话");
+        adapter.addFragment(NewsListFragment.getNewListFragment(HEAD),"头条");
+        adapter.addFragment(NewsListFragment.getNewListFragment(NBA),"NBA");
+        adapter.addFragment(NewsListFragment.getNewListFragment(CAR),"汽车");
+        adapter.addFragment(NewsListFragment.getNewListFragment(JOKE),"笑话");
         viewPager.setAdapter(adapter);
     }
 
-    class MyAdapter extends FragmentPagerAdapter{
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
+    public static class MyAdapter extends FragmentPagerAdapter{
+        private List<Fragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
 
         MyAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
@@ -70,6 +75,11 @@ public class NewsFragment extends Fragment {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
         }
     }
 }

@@ -4,6 +4,8 @@ package com.example.remember.newsapp.utils;
 import android.util.Log;
 
 import com.example.remember.newsapp.beans.Picture;
+import com.example.remember.newsapp.beans.newsbeans.News;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,4 +42,21 @@ public class Utility {
         }
         return false;
     }
+
+    public static News handleNews(String response){
+        try {
+            if (response!=null){
+                JSONObject jsonObjectT = new JSONObject(response);
+                JSONArray jsonArray = jsonObjectT.getJSONArray("T1348647909107");
+                String newsContent = jsonArray.getJSONObject(0).toString();
+                return new Gson().fromJson(newsContent, News.class);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
 }

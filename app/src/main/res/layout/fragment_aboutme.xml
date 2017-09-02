@@ -135,7 +135,8 @@
                         android:layout_height="wrap_content"
                         android:autoLink="web"
                         android:singleLine="true"
-                        android:text="  https://github.com/Remember..."
+                        android:maxLines="1"
+                        android:text="  https://github.com/RememberGpz"
                         android:textColorLink="@color/colorPrimary"
                         />
             </LinearLayout>
