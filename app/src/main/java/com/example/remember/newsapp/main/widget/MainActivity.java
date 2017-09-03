@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 return true;
             }
         });
-        toolbar.setNavigationIcon(R.drawable.menu);
+        toolbar.setNavigationIcon(R.drawable.drawer2);
         switchNews();
     }
 
@@ -120,5 +120,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void switchAbout() {
         startActivity(new Intent(MainActivity.this,AboutActivity.class));
+    }
+
+    @Override
+    public void exit() {
+        this.finish();
+        System.exit(0);
     }
 }

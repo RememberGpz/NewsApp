@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.remember.newsapp.Commons.Urls;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.beans.newsbeans.News;
 import com.example.remember.newsapp.news.adapter.NewsListAdapter;
 import com.example.remember.newsapp.news.presenter.NewsPresenterImpl;
 import com.example.remember.newsapp.news.view.NewsView;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     private List<News> newses = new ArrayList<>();
     private NewsPresenterImpl newsPresenterImpl;
     private NewsListAdapter newsListAdapter;
+    private int mType = NewsFragment.HEAD;
 
     public static NewsListFragment getNewListFragment(int tye){
         Bundle bundle = new Bundle();
@@ -43,7 +47,7 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mType = getArguments().getInt("type");
     }
 
     @Nullable
@@ -71,7 +75,6 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
         }
         newses.clear();
         newses = newsList;
-
         newsListAdapter.setData(newses);
     }
 
@@ -88,15 +91,15 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     };
     @Override
     public void onRefresh() {
-
-        newsPresenterImpl.loadNewsList();
+        DataSupport.deleteAll(News.class);
+        newsPresenterImpl.loadNewsList(mType);
 
     }
 
     public void closeRefleshing(){
         Log.i("CloseRefleshing()","istrue");
         if (srl_news.isRefreshing()){
-                    srl_news.setRefreshing(false);
+            srl_news.setRefreshing(false);
             }
         }
 

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.remember.newsapp.Commons.Urls;
 import com.example.remember.newsapp.beans.newsbeans.News;
+import com.example.remember.newsapp.news.widget.NewsFragment;
 import com.example.remember.newsapp.news.widget.NewsListFragment;
 import com.example.remember.newsapp.utils.OkHttpUtil;
 import com.example.remember.newsapp.utils.ToastUtil;
@@ -14,7 +15,10 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +35,9 @@ public class NewsPresenterImpl implements NewsPresenter {
     }
 
     @Override
-    public void loadNewsList() {
-        String url = Urls.TOP_URL+Urls.TOP_ID+"/0-20.html";
-        String url1 = "http://c.m.163.com/nc/article/headline/" + "T1348647909107" +"0-20.html";
+    public void loadNewsList(final int type) {
+        String url = getUrl(type);
+//        String url1 = "http://c.m.163.com/nc/article/headline/" + "T1348647909107" +"0-20.html";
         OkHttpUtil.getOkHttpUtil().sendHttpRequest( url, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -51,22 +55,40 @@ public class NewsPresenterImpl implements NewsPresenter {
             @Override
             public void onResponse(Response response) throws IOException {
                 Log.i("NewsPresenterImpl-----","news == null!!!!");
-                News news = Utility.handleNews(response.body().string());
-                if (news != null){
-                    final List<News> newsList = new ArrayList<>();
-                    newsList.add(news);
+//                News news = Utility.handleNews(response.body().string());
+
+                if (Utility.handleNews(response.body().string(),type)){
+                    final List<News>  newses = DataSupport.where("type=?",type+"").find(News.class);
                     newsListFragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            newsListFragment.addNews(newsList);
+                            newsListFragment.addNews(newses);
                             newsListFragment.closeRefleshing();
                         }
                     });
-
                 }else {
                     Log.i("NewsPresenterImpl-----","news == null!");
                 }
             }
         });
+    }
+
+    private String getUrl(int type){
+        StringBuffer url= new StringBuffer();
+        switch (type){
+            case NewsFragment.HEAD:
+                url.append(Urls.TOP_URL).append(Urls.TOP_ID);
+                break;
+            case NewsFragment.NBA:
+                url.append(Urls.COMMON_URL).append(Urls.NBA_ID);
+                break;
+            case NewsFragment.CAR:
+                url.append(Urls.COMMON_URL).append(Urls.CAR_ID);
+                break;
+            case NewsFragment.JOKE:
+                url.append(Urls.COMMON_URL).append(Urls.JOKE_ID);
+                break;
+        }
+        return url.append("/0-20.html").toString();
     }
 }

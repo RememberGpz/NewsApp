@@ -2,6 +2,7 @@
 <android.support.design.widget.AppBarLayout
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    app:elevation="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -10,7 +11,7 @@
         app:titleTextColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="0dp"
+
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways"

@@ -29,6 +29,8 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.item_aboutme:
                 mainView.switchAbout();
                 break;
+            case R.id.item_exit:
+                mainView.exit();
         }
     }
 }

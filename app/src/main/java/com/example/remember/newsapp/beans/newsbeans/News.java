@@ -2,13 +2,15 @@ package com.example.remember.newsapp.beans.newsbeans;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**
  * Created by Remember on 2017/9/2.
  */
 
-public class News {
+public class News extends DataSupport{
 
         /**
          * imgextra : [{"imgsrc":"http://cms-bucket.nosdn.127.net/8259b113c948415b9c842cf24c1a0fc720170902204833.jpeg"},{"imgsrc":"http://cms-bucket.nosdn.127.net/4d76bd17f694404fb2567d42b7043ff620170902204833.jpeg"}]
@@ -48,76 +50,94 @@ public class News {
          * ltitle : 东风导弹发射成功 他奖励官兵仅2个煮熟的土豆
          * subtitle :
          */
+        private int id;
+    private int type;     //类别类型
 
-        private String template;
-        private String skipID;
-        private String lmodify;
-        private String postid;
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    //        private String template;
+//        private String skipID;
+//        private String lmodify;
+//        private String postid;
         private String source;
         private String title;
         private String mtime;
-        private int hasImg;
-        private String topic_background;
-        private String digest;
-        private String photosetID;
-        private String boardid;
-        private String alias;
-        private int hasAD;
+//        private int hasImg;
+//        private String topic_background;
+//        private String digest;
+//        private String photosetID;
+//        private String boardid;
+//        private String alias;
+//        private int hasAD;
         private String imgsrc;
-        private String ptime;
-        private String daynum;
-        private int hasHead;
-        private int order;
-        private int votecount;
-        private boolean hasCover;
-        private String docid;
-        private String tname;
-        private int priority;
-        private String ename;
-        private int replyCount;
-        private int imgsum;
-        private boolean hasIcon;
-        private String skipType;
-        private String cid;
-        private String url_3w;
-        private String url;
-        private String ltitle;
-        private String subtitle;
-        @SerializedName("imgextra")
-        private List<ImageSrcBean> imageSrcList;
-        private List<AdsBean> ads;
-
-        public String getTemplate() {
-            return template;
-        }
-
-        public void setTemplate(String template) {
-            this.template = template;
-        }
-
-        public String getSkipID() {
-            return skipID;
-        }
-
-        public void setSkipID(String skipID) {
-            this.skipID = skipID;
-        }
-
-        public String getLmodify() {
-            return lmodify;
-        }
-
-        public void setLmodify(String lmodify) {
-            this.lmodify = lmodify;
-        }
-
-        public String getPostid() {
-            return postid;
-        }
-
-        public void setPostid(String postid) {
-            this.postid = postid;
-        }
+//        private String ptime;
+//        private String daynum;
+//        private int hasHead;
+//        private int order;
+//        private int votecount;
+//        private boolean hasCover;
+//        private String docid;
+//        private String tname;
+//        private int priority;
+//        private String ename;
+//        private int replyCount;
+//        private int imgsum;
+//        private boolean hasIcon;
+//        private String skipType;
+//        private String cid;
+//        private String url_3w;
+//        private String url;
+//        private String ltitle;
+//        private String subtitle;
+//        @SerializedName("imgextra")
+//        private List<ImageSrcBean> imageSrcList;
+//        private List<AdsBean> ads;
+//
+//        public String getTemplate() {
+//            return template;
+//        }
+//
+//        public void setTemplate(String template) {
+//            this.template = template;
+//        }
+//
+//        public String getSkipID() {
+//            return skipID;
+//        }
+//
+//        public void setSkipID(String skipID) {
+//            this.skipID = skipID;
+//        }
+//
+//        public String getLmodify() {
+//            return lmodify;
+//        }
+//
+//        public void setLmodify(String lmodify) {
+//            this.lmodify = lmodify;
+//        }
+//
+//        public String getPostid() {
+//            return postid;
+//        }
+//
+//        public void setPostid(String postid) {
+//            this.postid = postid;
+//        }
 
         public String getSource() {
             return source;
@@ -143,61 +163,61 @@ public class News {
             this.mtime = mtime;
         }
 
-        public int getHasImg() {
-            return hasImg;
-        }
-
-        public void setHasImg(int hasImg) {
-            this.hasImg = hasImg;
-        }
-
-        public String getTopic_background() {
-            return topic_background;
-        }
-
-        public void setTopic_background(String topic_background) {
-            this.topic_background = topic_background;
-        }
-
-        public String getDigest() {
-            return digest;
-        }
-
-        public void setDigest(String digest) {
-            this.digest = digest;
-        }
-
-        public String getPhotosetID() {
-            return photosetID;
-        }
-
-        public void setPhotosetID(String photosetID) {
-            this.photosetID = photosetID;
-        }
-
-        public String getBoardid() {
-            return boardid;
-        }
-
-        public void setBoardid(String boardid) {
-            this.boardid = boardid;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        public int getHasAD() {
-            return hasAD;
-        }
-
-        public void setHasAD(int hasAD) {
-            this.hasAD = hasAD;
-        }
+//        public int getHasImg() {
+//            return hasImg;
+//        }
+//
+//        public void setHasImg(int hasImg) {
+//            this.hasImg = hasImg;
+//        }
+//
+//        public String getTopic_background() {
+//            return topic_background;
+//        }
+//
+//        public void setTopic_background(String topic_background) {
+//            this.topic_background = topic_background;
+//        }
+//
+//        public String getDigest() {
+//            return digest;
+//        }
+//
+//        public void setDigest(String digest) {
+//            this.digest = digest;
+//        }
+//
+//        public String getPhotosetID() {
+//            return photosetID;
+//        }
+//
+//        public void setPhotosetID(String photosetID) {
+//            this.photosetID = photosetID;
+//        }
+//
+//        public String getBoardid() {
+//            return boardid;
+//        }
+//
+//        public void setBoardid(String boardid) {
+//            this.boardid = boardid;
+//        }
+//
+//        public String getAlias() {
+//            return alias;
+//        }
+//
+//        public void setAlias(String alias) {
+//            this.alias = alias;
+//        }
+//
+//        public int getHasAD() {
+//            return hasAD;
+//        }
+//
+//        public void setHasAD(int hasAD) {
+//            this.hasAD = hasAD;
+//        }
 
         public String getImgsrc() {
             return imgsrc;
@@ -206,173 +226,173 @@ public class News {
         public void setImgsrc(String imgsrc) {
             this.imgsrc = imgsrc;
         }
-
-        public String getPtime() {
-            return ptime;
-        }
-
-        public void setPtime(String ptime) {
-            this.ptime = ptime;
-        }
-
-        public String getDaynum() {
-            return daynum;
-        }
-
-        public void setDaynum(String daynum) {
-            this.daynum = daynum;
-        }
-
-        public int getHasHead() {
-            return hasHead;
-        }
-
-        public void setHasHead(int hasHead) {
-            this.hasHead = hasHead;
-        }
-
-        public int getOrder() {
-            return order;
-        }
-
-        public void setOrder(int order) {
-            this.order = order;
-        }
-
-        public int getVotecount() {
-            return votecount;
-        }
-
-        public void setVotecount(int votecount) {
-            this.votecount = votecount;
-        }
-
-        public boolean isHasCover() {
-            return hasCover;
-        }
-
-        public void setHasCover(boolean hasCover) {
-            this.hasCover = hasCover;
-        }
-
-        public String getDocid() {
-            return docid;
-        }
-
-        public void setDocid(String docid) {
-            this.docid = docid;
-        }
-
-        public String getTname() {
-            return tname;
-        }
-
-        public void setTname(String tname) {
-            this.tname = tname;
-        }
-
-        public int getPriority() {
-            return priority;
-        }
-
-        public void setPriority(int priority) {
-            this.priority = priority;
-        }
-
-        public String getEname() {
-            return ename;
-        }
-
-        public void setEname(String ename) {
-            this.ename = ename;
-        }
-
-        public int getReplyCount() {
-            return replyCount;
-        }
-
-        public void setReplyCount(int replyCount) {
-            this.replyCount = replyCount;
-        }
-
-        public int getImgsum() {
-            return imgsum;
-        }
-
-        public void setImgsum(int imgsum) {
-            this.imgsum = imgsum;
-        }
-
-        public boolean isHasIcon() {
-            return hasIcon;
-        }
-
-        public void setHasIcon(boolean hasIcon) {
-            this.hasIcon = hasIcon;
-        }
-
-        public String getSkipType() {
-            return skipType;
-        }
-
-        public void setSkipType(String skipType) {
-            this.skipType = skipType;
-        }
-
-        public String getCid() {
-            return cid;
-        }
-
-        public void setCid(String cid) {
-            this.cid = cid;
-        }
-
-        public String getUrl_3w() {
-            return url_3w;
-        }
-
-        public void setUrl_3w(String url_3w) {
-            this.url_3w = url_3w;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getLtitle() {
-            return ltitle;
-        }
-
-        public void setLtitle(String ltitle) {
-            this.ltitle = ltitle;
-        }
-
-        public String getSubtitle() {
-            return subtitle;
-        }
-
-        public void setSubtitle(String subtitle) {
-            this.subtitle = subtitle;
-        }
-
-        public List<ImageSrcBean> getImgextra() {
-            return imageSrcList;
-        }
-
-        public void setImgextra(List<ImageSrcBean> imageSrcList) {
-            this.imageSrcList = imageSrcList;
-        }
-
-        public List<AdsBean> getAds() {
-            return ads;
-        }
-
-        public void setAds(List<AdsBean> ads) {
-            this.ads = ads;
-        }
-
+//
+//        public String getPtime() {
+//            return ptime;
+//        }
+//
+//        public void setPtime(String ptime) {
+//            this.ptime = ptime;
+//        }
+//
+//        public String getDaynum() {
+//            return daynum;
+//        }
+//
+//        public void setDaynum(String daynum) {
+//            this.daynum = daynum;
+//        }
+//
+//        public int getHasHead() {
+//            return hasHead;
+//        }
+//
+//        public void setHasHead(int hasHead) {
+//            this.hasHead = hasHead;
+//        }
+//
+//        public int getOrder() {
+//            return order;
+//        }
+//
+//        public void setOrder(int order) {
+//            this.order = order;
+//        }
+//
+//        public int getVotecount() {
+//            return votecount;
+//        }
+//
+//        public void setVotecount(int votecount) {
+//            this.votecount = votecount;
+//        }
+//
+//        public boolean isHasCover() {
+//            return hasCover;
+//        }
+//
+//        public void setHasCover(boolean hasCover) {
+//            this.hasCover = hasCover;
+//        }
+//
+//        public String getDocid() {
+//            return docid;
+//        }
+//
+//        public void setDocid(String docid) {
+//            this.docid = docid;
+//        }
+//
+//        public String getTname() {
+//            return tname;
+//        }
+//
+//        public void setTname(String tname) {
+//            this.tname = tname;
+//        }
+//
+//        public int getPriority() {
+//            return priority;
+//        }
+//
+//        public void setPriority(int priority) {
+//            this.priority = priority;
+//        }
+//
+//        public String getEname() {
+//            return ename;
+//        }
+//
+//        public void setEname(String ename) {
+//            this.ename = ename;
+//        }
+//
+//        public int getReplyCount() {
+//            return replyCount;
+//        }
+//
+//        public void setReplyCount(int replyCount) {
+//            this.replyCount = replyCount;
+//        }
+//
+//        public int getImgsum() {
+//            return imgsum;
+//        }
+//
+//        public void setImgsum(int imgsum) {
+//            this.imgsum = imgsum;
+//        }
+//
+//        public boolean isHasIcon() {
+//            return hasIcon;
+//        }
+//
+//        public void setHasIcon(boolean hasIcon) {
+//            this.hasIcon = hasIcon;
+//        }
+//
+//        public String getSkipType() {
+//            return skipType;
+//        }
+//
+//        public void setSkipType(String skipType) {
+//            this.skipType = skipType;
+//        }
+//
+//        public String getCid() {
+//            return cid;
+//        }
+//
+//        public void setCid(String cid) {
+//            this.cid = cid;
+//        }
+//
+//        public String getUrl_3w() {
+//            return url_3w;
+//        }
+//
+//        public void setUrl_3w(String url_3w) {
+//            this.url_3w = url_3w;
+//        }
+//
+//        public String getUrl() {
+//            return url;
+//        }
+//
+//        public void setUrl(String url) {
+//            this.url = url;
+//        }
+//
+//        public String getLtitle() {
+//            return ltitle;
+//        }
+//
+//        public void setLtitle(String ltitle) {
+//            this.ltitle = ltitle;
+//        }
+//
+//        public String getSubtitle() {
+//            return subtitle;
+//        }
+//
+//        public void setSubtitle(String subtitle) {
+//            this.subtitle = subtitle;
+//        }
+//
+//        public List<ImageSrcBean> getImgextra() {
+//            return imageSrcList;
+//        }
+//
+//        public void setImgextra(List<ImageSrcBean> imageSrcList) {
+//            this.imageSrcList = imageSrcList;
+//        }
+//
+//        public List<AdsBean> getAds() {
+//            return ads;
+//        }
+//
+//        public void setAds(List<AdsBean> ads) {
+//            this.ads = ads;
+//        }
+//
 }

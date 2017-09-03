@@ -15,5 +15,20 @@ public class Urls {
     // 头条
     public static final String TOP_URL = HOST + "nc/article/headline/";
     public static final String TOP_ID = "T1348647909107";
+    public static final String COMMON_URL = HOST + "nc/article/list/";
 
+    // 汽车
+    public static final String CAR_ID = "T1348654060988";
+    // 笑话
+    public static final String JOKE_ID = "T1350383429665";
+    // nba
+    public static final String NBA_ID = "T1348649145984";
+
+
+
+    // 图片
+    public static final String IMAGES_URL = "http://api.laifudao.com/open/tupian.json";
+
+    // 天气预报url
+    public static final String WEATHER = "http://wthrcdn.etouch.cn/weather_mini?city=";
 }

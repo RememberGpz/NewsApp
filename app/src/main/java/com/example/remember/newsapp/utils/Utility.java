@@ -3,8 +3,10 @@ package com.example.remember.newsapp.utils;
 
 import android.util.Log;
 
+import com.example.remember.newsapp.Commons.Urls;
 import com.example.remember.newsapp.beans.Picture;
 import com.example.remember.newsapp.beans.newsbeans.News;
+import com.example.remember.newsapp.news.widget.NewsFragment;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -43,20 +45,47 @@ public class Utility {
         return false;
     }
 
-    public static News handleNews(String response){
+    public static boolean handleNews(String response,int type){
         try {
+            String code = "";
             if (response!=null){
+                switch (type){
+                    case NewsFragment.HEAD:
+                        code = Urls.TOP_ID;
+                        break;
+                    case NewsFragment.NBA:
+                        code = Urls.NBA_ID;
+                        break;
+                    case NewsFragment.CAR:
+                        code = Urls.CAR_ID;
+                        break;
+                    case NewsFragment.JOKE:
+                        code = Urls.JOKE_ID;
+                        break;
+                    default:code = Urls.TOP_ID;
+                }
                 JSONObject jsonObjectT = new JSONObject(response);
-                JSONArray jsonArray = jsonObjectT.getJSONArray("T1348647909107");
-                String newsContent = jsonArray.getJSONObject(0).toString();
-                return new Gson().fromJson(newsContent, News.class);
+                JSONArray jsonArray = jsonObjectT.getJSONArray(code);
+                Log.i("utility--",jsonArray.getJSONObject(0).getString("title"));
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    News news1 = new News();
+                    news1.setTitle(jsonObject.getString("title"));
+                    news1.setImgsrc(jsonObject.getString("imgsrc"));
+                    news1.setMtime(jsonObject.getString("mtime"));
+                    news1.setSource(jsonObject.getString("source"));
+                    news1.setType(type);
+                    news1.save();
+                }
+
+                return true;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        return null;
+        return false;
     }
 
 }

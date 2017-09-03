@@ -9,4 +9,5 @@ public interface MainView {
     void switchPicture();
     void switchWeather();
     void switchAbout();
+    void exit();
 }
