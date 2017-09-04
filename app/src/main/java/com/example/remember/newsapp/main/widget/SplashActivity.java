@@ -16,6 +16,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.remember.newsapp.R;
+import com.example.remember.newsapp.login.wedget.LoginActivity;
+
+import cn.bmob.v3.Bmob;
 
 /**
  * Created by Administrator on 2017/9/4.
@@ -36,6 +39,9 @@ public class SplashActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         setContentView(R.layout.activity_splash);
+
+        initBmob();              //初始化bmobSDK
+
         imageView = (ImageView)findViewById(R.id.iv_splash);
         AlphaAnimation animation = new AlphaAnimation(0.4f,1.0f);
         animation.setDuration(3000);
@@ -60,8 +66,12 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    private void initBmob(){
+        Bmob.initialize(this,"cfbf1ec371ed270f91166ff6c59391d9");
+    }
+
     private void skip (){
-        Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();
     }

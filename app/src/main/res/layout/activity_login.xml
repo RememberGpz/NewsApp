@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_bg2"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <include layout="@layout/toolbar"
+            android:id="@+id/tb_login"/>
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/login_text"
+                    android:text="账号："
+                    />
+                <EditText
+                    android:id="@+id/et_login_name"
+                    android:layout_width="180dp"
+                    android:layout_height="37dp"
+                    android:textColorHint="@color/login_hint_text"
+                    android:background="@drawable/edittext_style"
+                    android:padding="7dp"
+                    android:lines="1"
+                    android:textCursorDrawable="@drawable/cursor_style"
+
+                    android:hint="输入您的账号..."
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/login_text"
+
+                    android:text="密码："
+                    />
+                <EditText
+                    android:id="@+id/et_login_password"
+                    android:layout_width="180dp"
+                    android:inputType="textPassword"
+                    android:layout_height="37dp"
+                    android:background="@drawable/edittext_style"
+                    android:padding="7dp"
+                    android:hint="输入您的密码.."
+                    android:textColorHint="@color/login_hint_text"
+                    android:lines="1"
+                    android:textCursorDrawable="@drawable/cursor_style"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textSize="@dimen/login_text"
+                android:gravity="center"
+                android:background="@drawable/btn_login_bg"
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="80dp"
+                android:text="登         录"
+                />
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="@dimen/login_text"
+                android:gravity="center"
+                android:background="@drawable/btn_login_bg"
+
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="80dp"
+                android:text="注         册"
+                />
+        </LinearLayout>
+
+
+</LinearLayout>
