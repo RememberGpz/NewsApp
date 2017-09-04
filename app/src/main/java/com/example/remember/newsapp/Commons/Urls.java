@@ -25,10 +25,13 @@ public class Urls {
     public static final String NBA_ID = "T1348649145984";
 
 
-
     // 图片
     public static final String IMAGES_URL = "http://api.laifudao.com/open/tupian.json";
 
     // 天气预报url
     public static final String WEATHER = "http://wthrcdn.etouch.cn/weather_mini?city=";
+
+
+    //必应图片url
+    public static final String BING_PIC= "http://guolin.tech/api/bing_pic";
 }
