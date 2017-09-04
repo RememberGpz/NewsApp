@@ -27,6 +27,7 @@ import com.example.remember.newsapp.main.presenter.MainPresenterImpl;
 import com.example.remember.newsapp.main.view.MainView;
 import com.example.remember.newsapp.news.widget.NewsFragment;
 import com.example.remember.newsapp.picture.widget.PictureFragment;
+import com.example.remember.newsapp.services.AutoUpdateService;
 import com.example.remember.newsapp.utils.OkHttpUtil;
 import com.example.remember.newsapp.utils.ToastUtil;
 import com.example.remember.newsapp.weather.widget.WeatherFragment;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
         setContentView(R.layout.activity_main);
         currentTime = 0;
         sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);      //开启服务
+        startService(intent);
+
         mainPresenterImpl= new MainPresenterImpl(this);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -148,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 }
 
                 this.finish();
-                System.exit(0);
             }else {
                 currentTime = System.currentTimeMillis();
                 Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
@@ -182,6 +186,5 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void exit() {
         this.finish();
-        System.exit(0);
     }
 }
