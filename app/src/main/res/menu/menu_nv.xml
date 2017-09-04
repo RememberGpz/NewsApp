@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/item_news"
-            android:title="新闻"
+            android:title="     新    闻"
             android:icon="@drawable/news"
             android:checked="true"
             />
         <item
             android:id="@+id/item_picture"
-            android:title="图片"
+            android:title="     图     片"
             android:icon="@drawable/picture"
             />
         <item
             android:id="@+id/item_weather"
-            android:title="天气"
+            android:title="     天     气"
             android:icon="@drawable/weather"
             />
-        <item
-            android:id="@+id/item_aboutme"
-            android:title="关于"
-            android:icon="@drawable/aboutme"
-            />
     </group>
+    <item android:title="  其   他">
+        <menu >
+            <group android:checkableBehavior="single">
+            <item android:id="@+id/item_aboutme" android:icon="@drawable/aboutme"
+            android:title="     关     于"/>
+            <item android:id="@+id/item_exit" android:icon="@drawable/exit"
+            android:title="     退    出" />
+            </group>
+        </menu>
+    </item>
 </menu>

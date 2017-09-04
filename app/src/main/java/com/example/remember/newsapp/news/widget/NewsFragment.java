@@ -20,9 +20,14 @@ import java.util.List;
  * Created by Administrator on 2017/8/31.
  */
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements ViewPager.OnPageChangeListener{
     private TabLayout tabLayout ;
     private ViewPager viewPager;
+
+    public static final int HEAD = 1;
+    public static final int NBA = 2;
+    public static final int CAR = 3;
+    public static final int JOKE = 4;
 
     @Nullable
     @Override
@@ -30,7 +35,7 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news,null);
         tabLayout = view.findViewById(R.id.tablayout);
         viewPager = view.findViewById(R.id.vp);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         setupViewPager(viewPager);
         tabLayout.addTab(tabLayout.newTab().setText("头条"));
         tabLayout.addTab(tabLayout.newTab().setText("NBA"));
@@ -42,16 +47,34 @@ public class NewsFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager){
         MyAdapter adapter =new MyAdapter(getChildFragmentManager());
-        adapter.addFragment(new Fragment(),"头条");
-        adapter.addFragment(new Fragment(),"NBA");
-        adapter.addFragment(new Fragment(),"汽车");
-        adapter.addFragment(new Fragment(),"笑话");
+        adapter.addFragment(NewsListFragment.getNewListFragment(HEAD),"头条");
+        adapter.addFragment(NewsListFragment.getNewListFragment(NBA),"NBA");
+        adapter.addFragment(NewsListFragment.getNewListFragment(CAR),"汽车");
+        adapter.addFragment(NewsListFragment.getNewListFragment(JOKE),"笑话");
         viewPager.setAdapter(adapter);
     }
 
-    class MyAdapter extends FragmentPagerAdapter{
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        switch (state){
+            case 0:
+
+        }
+    }
+
+    public static class MyAdapter extends FragmentPagerAdapter{
+        private List<Fragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
 
         MyAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
@@ -70,6 +93,11 @@ public class NewsFragment extends Fragment {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
         }
     }
 }
