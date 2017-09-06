@@ -28,6 +28,7 @@ import com.example.remember.newsapp.main.view.MainView;
 import com.example.remember.newsapp.news.widget.NewsFragment;
 import com.example.remember.newsapp.picture.widget.PictureFragment;
 import com.example.remember.newsapp.services.AutoUpdateService;
+import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.OkHttpUtil;
 import com.example.remember.newsapp.utils.ToastUtil;
 import com.example.remember.newsapp.weather.widget.WeatherFragment;
@@ -51,11 +52,14 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private ImageView bing_pic;
     private ActionBarDrawerToggle toggle;
     private SharedPreferences sp ;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadingDialog = new LoadingDialog(this);
+
         currentTime = 0;
         sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 

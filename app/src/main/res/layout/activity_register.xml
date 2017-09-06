@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar"
+        android:id="@+id/tb_register"/>
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/login_text"
+            android:text="手机："
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            />
+        <EditText
+            android:id="@+id/et_rgt_phone"
+            android:layout_width="180dp"
+            android:layout_height="37dp"
+            android:inputType="phone"
+            android:textColorHint="@color/login_hint_text"
+            android:background="@drawable/edittext_style"
+            android:padding="7dp"
+            android:lines="1"
+            android:textCursorDrawable="@drawable/cursor_style"
+
+            android:hint="输入您的手机号码..."
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/login_text"
+
+            android:text="密码："
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            />
+        <EditText
+            android:id="@+id/et_rgt_password"
+            android:layout_width="180dp"
+            android:inputType="textPassword"
+            android:layout_height="37dp"
+            android:background="@drawable/edittext_style"
+            android:padding="7dp"
+            android:hint="设置您的密码.."
+            android:textColorHint="@color/login_hint_text"
+            android:drawableRight="@drawable/psd_inv"
+            android:lines="1"
+            android:textCursorDrawable="@drawable/cursor_style"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_rgt_code"
+            android:layout_width="130dp"
+            android:inputType="number"
+            android:layout_height="37dp"
+            android:background="@drawable/edittext_style"
+            android:padding="7dp"
+            android:hint="验证码.."
+            android:textColorHint="@color/login_hint_text"
+            android:lines="1"
+            android:textCursorDrawable="@drawable/cursor_style"
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            />
+        <TextView
+            android:id="@+id/tv_getcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:textSize="@dimen/login_text"
+            android:gravity="center"
+            android:background="@drawable/btn_login_bg"
+            android:text="获取验证码"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_rgt_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/login_text"
+        android:gravity="center"
+        android:background="@drawable/btn_login_bg"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:text="注         册"
+        />
+
+</LinearLayout>

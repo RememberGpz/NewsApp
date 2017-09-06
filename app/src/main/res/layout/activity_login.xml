@@ -69,6 +69,7 @@
                     android:padding="7dp"
                     android:hint="输入您的密码.."
                     android:textColorHint="@color/login_hint_text"
+                    android:drawableRight="@drawable/psd_inv"
                     android:lines="1"
                     android:textCursorDrawable="@drawable/cursor_style"
                     />

@@ -1,5 +1,6 @@
 package com.example.remember.newsapp.login.wedget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.beans.userbeans.User;
+import com.example.remember.newsapp.main.widget.MainActivity;
+import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
 
 import org.json.JSONArray;
@@ -32,10 +35,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView login,register;
     private EditText etName,etPassword;
     private String name,password;
+    private LoadingDialog loadingDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loadingDialog = new LoadingDialog(this);
         initView();
     }
 
@@ -60,7 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 login();
                 break;
             case R.id.tv_register:
-                register();
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -75,7 +81,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ToastUtil.showToast("请输入密码");
             return;
         }
-        quetyUser(name,password,0);
+        loadingDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                quetyUser(name,password,0);
+            }
+        }).start();
+
     }
 
     private void quetyUser(final String name1, final String password, final int type){
@@ -86,21 +99,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void done(JSONArray jsonArray, BmobException e) {
                 if (e == null){
+                    loadingDialog.dissmiss();
                         Log.i("111---", "  -------");
                         Log.i("111---","共 " + jsonArray.length() +"条数据");
                     if (jsonArray.length()>0) {
                         if (type == 1) {
-                            ToastUtil.showToast("该用户已存在了哦！");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showToast("该用户已存在了哦！");
+
+                                }
+                            });
+
                             return;
                         }
 
                         if (type == 0) {      //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
                             try {
                                 if (jsonArray.getJSONObject(0).getString("password").equals(password)) {   //如果密码相等则登录成功
-                                    ToastUtil.showToast("喵~ " + name);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                     return;
                                 } else {
-                                    ToastUtil.showToast("密码错误！");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ToastUtil.showToast("密码错误！");
+                                        }
+                                    });
+
                                     return;
                                 }
                             } catch (JSONException e1) {
@@ -109,22 +137,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         }
                     }else {
+
                         if (type == 1) {            //如果是注册所需要的查询则如下
                             User user = new User();
                             user.setName(name);
                             user.setPassword(password);
                             user.save(new SaveListener<String>() {
                                 @Override
-                                public void done(String s, BmobException e) {
-                                    if (e == null) {
-                                        ToastUtil.showToast("注册成功--" + s);
-                                    } else {
-                                        ToastUtil.showToast("注册失败" + e.getMessage());
-                                    }
+                                public void done(final String s,final BmobException e) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loadingDialog.dissmiss();
+                                            if (e == null) {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ToastUtil.showToast("注册成功--" + s);
+                                                    }
+                                                });
+
+                                            } else {
+                                               runOnUiThread(new Runnable() {
+                                                   @Override
+                                                   public void run() {
+                                                       ToastUtil.showToast("注册失败" + e.getMessage());
+                                                   }
+                                               });
+                                            }
+                                        }
+                                    });
+
                                 }
                             });
                         } else if (type == 0) {
-                            ToastUtil.showToast("没用该用户！");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showToast("没用该用户！");
+                                }
+                            });
+
                         }
                     }
                  }
@@ -144,7 +197,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         Log.i("name",name);
-        quetyUser(name,password,1);
+        loadingDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                quetyUser(name,password,1);
+            }
+        }).start();
+
 
 //        User user = new User();
 //        user.setName(name);
