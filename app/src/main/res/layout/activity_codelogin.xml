@@ -3,13 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar"
-        android:id="@+id/tb_register"/>
+        android:id="@+id/tb_codelogin"
+        />
     <ImageView
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:src="@drawable/logo"
         />
     <LinearLayout
@@ -22,65 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:textSize="@dimen/login_text"
-            android:text="昵称："
-            />
-        <EditText
-            android:id="@+id/et_rgt_name"
-            android:layout_width="180dp"
-            android:layout_height="37dp"
-            android:inputType="phone"
-            android:textColorHint="@color/login_hint_text"
-            android:background="@drawable/edittext_style"
-            android:padding="7dp"
-            android:lines="1"
-            android:textCursorDrawable="@drawable/cursor_style"
-
-            android:hint="请设置昵称..."
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="@dimen/login_text"
-            android:text="密码："
-            />
-        <EditText
-            android:id="@+id/et_rgt_password"
-            android:layout_width="180dp"
-            android:inputType="textPassword"
-            android:layout_height="37dp"
-            android:background="@drawable/edittext_style"
-            android:padding="7dp"
-            android:hint="设置您的密码.."
-            android:textColorHint="@color/login_hint_text"
-            android:drawableRight="@drawable/psd_inv"
-            android:lines="1"
-            android:textCursorDrawable="@drawable/cursor_style"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="@dimen/login_text"
             android:text="手机："
             />
         <EditText
-            android:id="@+id/et_rgt_phone"
+            android:id="@+id/et_lg_phone"
             android:layout_width="180dp"
             android:layout_height="37dp"
             android:inputType="phone"
@@ -103,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/et_rgt_code"
+            android:id="@+id/et_lg_code"
             android:layout_width="110dp"
             android:inputType="number"
             android:layout_height="37dp"
@@ -115,7 +60,7 @@
             android:textCursorDrawable="@drawable/cursor_style"
             />
         <TextView
-            android:id="@+id/tv_getcode"
+            android:id="@+id/tv_lg_getcode"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:paddingRight="20dp"
@@ -129,7 +74,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_rgt_register"
+        android:id="@+id/tv_codelg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -138,7 +83,6 @@
         android:background="@drawable/btn_login_bg"
         android:layout_marginRight="60dp"
         android:layout_marginLeft="60dp"
-        android:text="注         册"
+        android:text="登         录"
         />
-
 </LinearLayout>

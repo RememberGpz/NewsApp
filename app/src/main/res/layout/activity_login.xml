@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:textSize="@dimen/login_text"
-                    android:text="账号："
+                    android:text="昵称："
                     />
                 <EditText
                     android:id="@+id/et_login_name"
@@ -72,6 +72,31 @@
                     android:drawableRight="@drawable/psd_inv"
                     android:lines="1"
                     android:textCursorDrawable="@drawable/cursor_style"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_code_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="手机动态登录"
+                    />
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="忘记密码？"
+
                     />
 
             </LinearLayout>

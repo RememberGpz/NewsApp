@@ -32,10 +32,11 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
-    private TextView login,register;
+    private TextView login,register,tvCodeLogin;
     private EditText etName,etPassword;
     private String name,password;
     private LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView(){
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        TextView title = (TextView)toolbar.findViewById(R.id.tb_title);
+        title.setText("登    录");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("登录");
+        getSupportActionBar().setTitle("");
 
         login = (TextView)findViewById(R.id.tv_login);
         register = (TextView)findViewById(R.id.tv_register);
+        tvCodeLogin = (TextView)findViewById(R.id.tv_code_login);
+        tvCodeLogin.setOnClickListener(this);
         login.setOnClickListener(this);
         register.setOnClickListener(this);
         etName = (EditText)findViewById(R.id.et_login_name);
@@ -67,6 +72,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tv_register:
                 Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_code_login:
+                Intent intent1 = new Intent(LoginActivity.this,CodeLoginActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
@@ -146,6 +155,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 @Override
                                 public void done(final String s,final BmobException e) {
                                     runOnUiThread(new Runnable() {
+
                                         @Override
                                         public void run() {
                                             loadingDialog.dissmiss();

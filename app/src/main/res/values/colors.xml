@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#25e2d3</color>
     <color name="colorAccent">#FF4081</color>
     <color name="btn_stroke">#ffffff</color>
-    <color name="login_hint_text">#BDC7D8</color>
-    <color name="transparent">#00000000</color>
+    <color name="login_hint_text">#BDC7D8</color>          //edittext默认字体颜色
+    <color name="transparent">#00000000</color>         //透明色
+    <color name="white_text">#ffffff</color>
+    <color name="spilt_line">#FFE2E2E2</color>   //分界线
+    <color name="default_text">#FF333333</color>  //默认字体颜色
+
 </resources>
