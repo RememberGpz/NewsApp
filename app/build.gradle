@@ -4,6 +4,11 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
 
+    aaptOptions {
+                cruncherEnabled = false
+                useNewCruncher = false
+
+           }
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.example.remember.newsapp"
@@ -33,6 +38,7 @@ dependencies {
     compile 'org.litepal.android:core:1.3.2'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.okhttp:okhttp:2.7.0'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'   //TextInputEditText加强版
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

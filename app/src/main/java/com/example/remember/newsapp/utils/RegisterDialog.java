@@ -62,13 +62,14 @@ public class RegisterDialog extends Dialog implements View.OnClickListener{
                 if (type==0){
                     Intent intent = new Intent(context,LoginActivity.class);
                     context.startActivity(intent);
+                    context.finish();
                 }
                 if (type ==1){
                     Intent intent = new Intent(context,RegisterActivity.class);
                     context.startActivity(intent);
                     context.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                    context.finish();
                 }
-                context.finish();
                 break;
             case R.id.tv_dialog_cancel:
                 dismiss();

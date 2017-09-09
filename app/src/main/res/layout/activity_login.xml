@@ -4,13 +4,179 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-        <include layout="@layout/toolbar"
-            android:id="@+id/tb_login"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="LOGIN"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary"
+        />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/met_login_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        app:met_baseColor="@color/colorPrimary"
+        app:met_primaryColor="@color/colorPrimary"
+        app:met_floatingLabelText="Mobile OR UserName"
+        app:met_singleLineEllipsis="true"
+        app:met_iconLeft="@drawable/phone"
+        app:met_iconPadding="0dp"
+        app:met_helperText="Character"
+        app:met_clearButton="true"
+        app:met_floatingLabelTextSize="13sp"
+        android:textCursorDrawable="@drawable/cursor_style"
+        app:met_floatingLabel="highlight"
+        android:hint="Mobile OR UserName"
+        />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/met_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        android:layout_gravity="center_horizontal"
+        app:met_baseColor="@color/colorPrimary"
+        app:met_primaryColor="@color/colorPrimary"
+        app:met_floatingLabelText="Password"
+        app:met_singleLineEllipsis="true"
+        app:met_iconLeft="@drawable/password"
+        app:met_iconPadding="0dp"
+        app:met_helperText="Character"
+        app:met_clearButton="true"
+        app:met_errorColor="@color/red_txt"
+        app:met_floatingLabelTextSize="13sp"
+        android:textCursorDrawable="@drawable/cursor_style"
+        app:met_floatingLabel="highlight"
+        android:hint="Password"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary_half"
+            android:text="don't have account yet?"
+            />
+        <TextView
+            android:id="@+id/tv_register1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimary"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_login1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:text="Login"
+        android:textSize="20sp"
+        android:textColor="@color/white_text"
+        android:gravity="center"
+        android:background="@drawable/btn_login_bg"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_code_login1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/codeLogin"
+        />
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_qq"
+               android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login With Social Platforms"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/white_text"
+                    android:layout_gravity="center_horizontal"
+                    />
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@drawable/qq1"
+                        android:layout_marginRight="20dp"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@drawable/weibo1"
+                        android:layout_marginRight="20dp"
+                        />
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/weixin1"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/or1"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+
+
+    <!--以下为老版本布局 ，隐藏掉-->
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -121,6 +287,7 @@
                 android:layout_marginLeft="40dp"
                 android:text="登         录"
                 />
+
             <TextView
                 android:id="@+id/tv_register"
                 android:layout_width="match_parent"

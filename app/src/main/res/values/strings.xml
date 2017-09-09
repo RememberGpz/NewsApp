@@ -4,4 +4,8 @@
     <string name="drawer_close">Close</string>
 
     <string name="agreement">《<u>NewsApp协议</u>》</string>
+    <string name="register"><u>REGISTER</u></string>
+    <string name="codeLogin"><u>LOGIN BY CODE</u></string>
+    <string name="register_shuoming">By Tapping \"Register\" You Agree To The</string>
+    <string name="register_agreement"><u>NewsApp &amp; Conditions</u></string>
 </resources>

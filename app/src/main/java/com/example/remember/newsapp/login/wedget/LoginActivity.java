@@ -24,6 +24,7 @@ import com.example.remember.newsapp.beans.userbeans.User;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ import cn.bmob.v3.listener.SaveListener;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
     private TextView login,register,tvCodeLogin;
-    private EditText etName,etPassword;
+    private MaterialEditText metName,metPassword;
     private String name,password;
     private LoadingDialog loadingDialog;
     private ImageView ivPsd;
@@ -55,39 +56,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView(){
-        toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        TextView title = (TextView)toolbar.findViewById(R.id.tb_title);
-        title.setText("登    录");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
 
-        login = (TextView)findViewById(R.id.tv_login);
-        register = (TextView)findViewById(R.id.tv_register);
-        tvCodeLogin = (TextView)findViewById(R.id.tv_code_login);
+        login = (TextView)findViewById(R.id.tv_login1);
+        register = (TextView)findViewById(R.id.tv_register1);
+        tvCodeLogin = (TextView)findViewById(R.id.tv_code_login1);
         tvCodeLogin.setOnClickListener(this);
         login.setOnClickListener(this);
         register.setOnClickListener(this);
-        etName = (EditText)findViewById(R.id.et_login_name);
-        etPassword = (EditText)findViewById(R.id.et_login_password);
+        metName = (MaterialEditText) findViewById(R.id.met_login_name);
+        metPassword = (MaterialEditText) findViewById(R.id.met_login_password);
         ivPsd = (ImageView)findViewById(R.id.iv_psd);
         ivPsd.setOnClickListener(this);
-
         psdFlag = false;
+
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_login:
+            case R.id.tv_login1:
                 login();
                 break;
-            case R.id.tv_register:
+            case R.id.tv_register1:
                 Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 break;
-            case R.id.tv_code_login:
+            case R.id.tv_code_login1:
                 Intent intent1 = new Intent(LoginActivity.this,CodeLoginActivity.class);
                 startActivity(intent1);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -95,27 +91,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.iv_psd:      //判断是否显示密码的逻辑操作
                 if (psdFlag==false){
                     ivPsd.setImageResource(R.drawable.psd_vib);
-                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); //显示密码
+                    metPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); //显示密码
                     psdFlag=true;
-                    etPassword.setSelection(etPassword.getText().length());                          //把光标移至文本最后
+                    metPassword.setSelection(metPassword.getText().length());                          //把光标移至文本最后
                 }else {
                     ivPsd.setImageResource(R.drawable.psd_inv);
                     psdFlag = false;
-                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());  //隐藏密码
-                    etPassword.setSelection(etPassword.getText().length());                          //把光标移至文本最后
+                    metPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());  //隐藏密码
+                    metPassword.setSelection(metPassword.getText().length());                          //把光标移至文本最后
                 }
 
         }
     }
     private void login(){
-        name = etName.getText().toString();
-        password = etPassword.getText().toString();
+        name = metName.getText().toString();
+        password = metPassword.getText().toString();
         if (TextUtils.isEmpty(name)){
-            ToastUtil.showToast("请输入账号或者手机号码");
+            Snackbar.make(tvCodeLogin,"Please Input Mobile OR UserName",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if (name.length()>15){
+            Snackbar.make(tvCodeLogin,"UserName OR Mobile Must Less Than 16",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(password)){
-            ToastUtil.showToast("请输入密码");
+            Snackbar.make(tvCodeLogin,"Please Input Password!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.length()<6||password.length()>15){
+            Snackbar.make(tvCodeLogin,"Password Must Greater Than 6 And Less Than 16",Snackbar.LENGTH_SHORT).show();
             return;
         }
         loadingDialog.show();
@@ -143,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
              }else {
                 loadingDialog.dissmiss();
-                Snackbar.make(tvCodeLogin,"登录失败！请重试",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
                 Log.i("Login.Log",e.getMessage());
             }
                 }
@@ -161,11 +165,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         isTruePassword(jsonArray,password);
                     }else {
                         loadingDialog.dissmiss();
-                        Snackbar.make(tvCodeLogin,"没有该用户！",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();
                     }
                 }else {
                     loadingDialog.dissmiss();
-                    Snackbar.make(tvCodeLogin,"登录失败！请重试",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -180,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 return;
             } else {
-                ToastUtil.showToast("密码错误！");
+                Snackbar.make(tvCodeLogin,"Password Error！",Snackbar.LENGTH_SHORT).show();
                 return;
             }
         } catch (JSONException e1) {

@@ -1,9 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_register"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl_register"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:layout_height="200dp">
+            <ImageView
+                android:id="@+id/iv_register_tb_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/register_bg2"
+                />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tool_bar_register"
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+
+                android:layout_marginTop="30dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_rgt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:hint="UserName"
+                        android:inputType="text"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        app:met_baseColor="@color/colorPrimary"
+                        app:met_clearButton="true"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelText="UserName"
+                        app:met_floatingLabelTextSize="12sp"
+                        app:met_helperText="Character"
+                        app:met_iconLeft="@drawable/phone2"
+                        app:met_primaryColor="@color/colorPrimary"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_rgt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        app:met_baseColor="@color/colorPrimary"
+                        app:met_clearButton="true"
+                        app:met_minCharacters="6"
+                        app:met_maxCharacters="20"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelText="Password"
+                        app:met_floatingLabelTextSize="12sp"
+                        app:met_helperText="Character"
+                        app:met_iconLeft="@drawable/password2"
+                        app:met_primaryColor="@color/colorPrimary"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_rgt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Mobile"
+                        android:inputType="phone"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        app:met_baseColor="@color/colorPrimary"
+                        app:met_clearButton="true"
+                        app:met_errorColor="@color/red_txt"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelText="Mobile"
+                        app:met_floatingLabelTextSize="12sp"
+                        app:met_helperText="Character"
+                        app:met_iconLeft="@drawable/phone_num"
+                        app:met_primaryColor="@color/colorPrimary"
+                        app:met_singleLineEllipsis="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/et_rgt_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:hint="Code"
+                            android:inputType="number"
+                            android:textCursorDrawable="@drawable/cursor_style"
+                            app:met_baseColor="@color/colorPrimary"
+                            app:met_clearButton="true"
+                            app:met_errorColor="@color/red_txt"
+                            app:met_floatingLabel="highlight"
+                            app:met_floatingLabelText="Code"
+                            app:met_floatingLabelTextSize="12sp"
+                            app:met_helperText="Character"
+                            app:met_iconLeft="@drawable/code"
+                            app:met_primaryColor="@color/colorPrimary"
+                            app:met_singleLineEllipsis="true" />
+
+                        <TextView
+                            android:id="@+id/tv_getcode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/btn_getcode_style"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="5dp"
+                            android:text="获取"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/register_shuoming"
+                    android:textColor="@color/colorPrimary_half" />
+
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text="@string/register_agreement"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_rgt_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_login_bg"
+                    android:gravity="center"
+                    android:text="REGISTER"
+                    android:textColor="@color/white_text"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Already Have An Account?  "
+                        android:textColor="@color/colorPrimary_half" />
+
+                    <TextView
+                        android:id="@+id/tv_login_here"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Login Here"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+    <!--以下是旧的布局，没有Material Design风格-->
+    <!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/toolbar"
-        android:id="@+id/tb_register"/>
+
+
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +281,7 @@
 
             android:hint="用户名..."
             />
+
 
     </LinearLayout>
     <View
@@ -210,3 +462,6 @@
         />
 
 </LinearLayout>
+-->
+
+

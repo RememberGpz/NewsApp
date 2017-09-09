@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#26e6d6</color>
-    <color name="colorPrimaryDark">#25e2d3</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009588</color>
+    <color name="colorPrimaryDark">#00786b</color>
+    <color name="colorLightPrimary">#b1ddda</color>
+    <color name="colorAccent">#5f7c8b</color>
+    <color name="colorPrimary_half">#FFB6DDDA</color>
     <color name="btn_stroke">#ffffff</color>
     <color name="login_hint_text">#BDC7D8</color>          //edittext默认字体颜色
     <color name="transparent">#00000000</color>         //透明色
     <color name="white_text">#ffffff</color>
     <color name="spilt_line">#FFE2E2E2</color>   //分界线
     <color name="default_text">#FF333333</color>  //默认字体颜色
+    <color name="primary_text">#FF212122</color>  //primaty text
+    <color name="secondary_text">#747475</color>    //secondary text
+    <color name="divider_color">#bcbcbd</color>   //divider color
     <color name="toolbar_bg">#ffffffff</color>    //标题背景颜色
+
+    <color name="red_txt">#FFFF0000</color>
 
 </resources>

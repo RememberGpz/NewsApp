@@ -48,8 +48,8 @@
         //注册
         <activity android:name=".login.wedget.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar1"/>
-        //注册
+            android:theme="@style/AppTheme.NoActionBarRegister"/>
+        //动态登录
         <activity android:name=".login.wedget.CodeLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar1"/>
