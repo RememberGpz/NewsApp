@@ -8,10 +8,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +48,13 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText etPhoneNum,etPassword,etCode,etName;
-    private TextView tvGetCode,tvRegister;
+    private TextView tvGetCode,tvRegister,tvAgreement;
     private Toolbar toolbar;
     private String phoneNum,password,code,name;
     private LoadingDialog loadingDialog;
     private RegisterDialog dialog;
+    private ImageView ivPsd;
+    private boolean psdFlag;  //用于密码可视与不可视的开关变量
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,12 +70,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void initView(){
         tvGetCode = (TextView)findViewById(R.id.tv_getcode);
         tvRegister =(TextView)findViewById(R.id.tv_rgt_register);
+        tvAgreement = (TextView)findViewById(R.id.tv_agreement);
         etCode = (EditText)findViewById(R.id.et_rgt_code);
         etPhoneNum = (EditText)findViewById(R.id.et_rgt_phone);
         etPassword = (EditText)findViewById(R.id.et_rgt_password);
         etName = (EditText)findViewById(R.id.et_rgt_name);
         tvRegister.setOnClickListener(this);
         tvGetCode.setOnClickListener(this);
+        tvAgreement.setOnClickListener(this);
+        ivPsd = (ImageView)findViewById(R.id.iv_psd);
+        ivPsd.setOnClickListener(this);
+
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView title = (TextView)toolbar.findViewById(R.id.tb_title);
@@ -86,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        psdFlag = false;
+
     }
 
     @Override
@@ -97,7 +110,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tv_rgt_register:
                 register();
                 break;
-
+            case R.id.iv_psd:
+                if (psdFlag == false){
+                    ivPsd.setImageResource(R.drawable.psd_vib);
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPassword.setSelection(etPassword.getText().length());
+                    psdFlag = true;
+                }else {
+                    ivPsd.setImageResource(R.drawable.psd_inv);
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPassword.setSelection(etPassword.getText().length());
+                    psdFlag =false;
+                }
+                break;
+            case R.id.tv_agreement:
+                Intent intent = new Intent(RegisterActivity.this,AgreementActivity.class);
+                startActivity(intent);
+                break;
         }
     }
    /*
@@ -226,7 +255,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }else{
                     loadingDialog.dissmiss();
-                    Snackbar.make(tvRegister,"注册失败！",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvRegister,"注册失败！请重试",Snackbar.LENGTH_SHORT).show();
                 }
 
             }

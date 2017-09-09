@@ -66,6 +66,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener{
                 if (type ==1){
                     Intent intent = new Intent(context,RegisterActivity.class);
                     context.startActivity(intent);
+                    context.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 }
                 context.finish();
                 break;

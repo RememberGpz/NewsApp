@@ -58,7 +58,13 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
-
+        actionBar.setTitle("");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -79,7 +85,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                 getCode();
                 break;
             case R.id.tv_codelg:
-                loadingDialog.show();
+
                 login();
                 break;
         }
@@ -143,6 +149,15 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
     private void login(){
         phone = etPhone.getText().toString().trim();
         code = etCode.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)){
+            ToastUtil.showToast("请输入手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(code)){
+            ToastUtil.showToast("请输入验证码");
+            return;
+        }
+        loadingDialog.show();
         BmobSMS.verifySmsCode(phone, code, new UpdateListener() {
             @Override
             public void done(BmobException e) {

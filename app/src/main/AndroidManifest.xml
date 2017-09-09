@@ -53,6 +53,10 @@
         <activity android:name=".login.wedget.CodeLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar1"/>
+        //协议
+        <activity android:name=".login.wedget.AgreementActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar1"/>
 
         <service
             android:name=".services.AutoUpdateService"
