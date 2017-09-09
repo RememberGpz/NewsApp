@@ -27,6 +27,7 @@ import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.RegisterDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
 import org.w3c.dom.Text;
@@ -49,7 +50,7 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
-    private EditText etPhoneNum,etPassword,etCode,etName;
+    private MaterialEditText etPhoneNum,etPassword,etCode,etName;
     private TextView tvGetCode,tvRegister,tvAgreement,tvLoginHere;
     private String phoneNum,password,code,name;
     private LoadingDialog loadingDialog;
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         Bmob.initialize(this,"cfbf1ec371ed270f91166ff6c59391d9");
         loadingDialog = new LoadingDialog(this);
-        dialog = new RegisterDialog(this,R.style.dialog_register,0,"注册成功！立即去登录吧");
+        dialog = new RegisterDialog(this,R.style.dialog_register,0,"Register Successful! Go To Login?");
         initView();
     }
 
@@ -78,10 +79,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         tvGetCode = (TextView)findViewById(R.id.tv_getcode);
         tvRegister =(TextView)findViewById(R.id.tv_rgt_register);
         tvAgreement = (TextView)findViewById(R.id.tv_agreement);
-        etCode = (EditText)findViewById(R.id.et_rgt_code);
-        etPhoneNum = (EditText)findViewById(R.id.et_rgt_phone);
-        etPassword = (EditText)findViewById(R.id.et_rgt_password);
-        etName = (EditText)findViewById(R.id.et_rgt_name);
+        etCode = (MaterialEditText)findViewById(R.id.et_rgt_code);
+        etPhoneNum = (MaterialEditText)findViewById(R.id.et_rgt_phone);
+        etPassword = (MaterialEditText)findViewById(R.id.et_rgt_password);
+        etName = (MaterialEditText)findViewById(R.id.et_rgt_name);
         tvRegister.setOnClickListener(this);
         tvGetCode.setOnClickListener(this);
         tvAgreement.setOnClickListener(this);
@@ -169,11 +170,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         phoneNum = etPhoneNum.getText().toString();
         password = etPassword.getText().toString();
         if (TextUtils.isEmpty(phoneNum)){
-            Snackbar.make(tvGetCode,"请输入手机号码！",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Mobile！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (!isMobileNO(phoneNum)){
-            Snackbar.make(tvGetCode,"请输入正确的手机号码！",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Valid Mobile！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         loadingDialog.show();
@@ -188,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (e == null){   //如果有数据则证明手机号码已经注册过了
                     if (jsonArray.length()>0){
                         loadingDialog.dissmiss();
-                        Snackbar.make(tvGetCode,"该手机号码已被注册！",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(tvGetCode,"This Mobile Has Registered！",Snackbar.LENGTH_SHORT).show();
                     }else if (jsonArray.length()<=0){
                         BmobSMS.requestSMSCode(phoneNum, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
                             @Override
@@ -197,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 if (e == null){
                                     BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
                                     btnCountTimer.start();
-                                    Snackbar.make(tvGetCode,"验证码已发送！",Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(tvGetCode,"The Code Was Send！",Snackbar.LENGTH_SHORT).show();
 
                                 }else {
 
@@ -207,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
                     }
                 }else {
-                    Snackbar.make(tvGetCode,"查询失败！",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
                     loadingDialog.dissmiss();
                 }
             }
@@ -222,24 +223,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         password = etPassword.getText().toString();
         code = etCode.getText().toString();
         if (TextUtils.isEmpty(name)){
-            Snackbar.make(tvGetCode,"请输入昵称！",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input UserName！",Snackbar.LENGTH_SHORT).show();
 
             return;
         }
         if (TextUtils.isEmpty(phoneNum)){
-            Snackbar.make(tvGetCode,"请输入手机号码",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Mobile",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(password)){
-            Snackbar.make(tvGetCode,"请输入密码",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Password",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(code)){
-            Snackbar.make(tvGetCode,"请输入验证码",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Code",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (!isMobileNO(phoneNum)){
-            Snackbar.make(tvGetCode,"请输入正确的手机号码",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(tvGetCode,"Please Input Valid Mobile",Snackbar.LENGTH_SHORT).show();
             return;
         }
         loadingDialog.show();
@@ -252,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void done(JSONArray jsonArray, BmobException e) {
                 if (e == null){
                     if (jsonArray.length()>0) {
-                        Snackbar.make(tvRegister, "该用户名已被占用~", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(tvRegister, "The UserName Is Exist~", Snackbar.LENGTH_SHORT).show();
                         loadingDialog.dissmiss();
                     }
                     else if (jsonArray.length()==0){
@@ -271,14 +272,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             if (e==null){
                                                 dialog.show();
                                             }else {
-                                                Snackbar.make(tvRegister,"注册失败！",Snackbar.LENGTH_SHORT).show();
+                                                Snackbar.make(tvRegister,"Register Failed！",Snackbar.LENGTH_SHORT).show();
                                                 Log.i("Register.Log",e.getMessage());
                                             }
                                         }
                                     });
 
                                 }else {
-                                    Snackbar.make(tvRegister,"验证码错误！",Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(tvRegister,"The Code Is Error！",Snackbar.LENGTH_SHORT).show();
                                     loadingDialog.dissmiss();
                                     Log.i("Register.Log",e.getMessage());
                                 }
@@ -288,7 +289,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }else{
                     loadingDialog.dissmiss();
-                    Snackbar.make(tvRegister,"注册失败！请重试",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvRegister,"Register Failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
                 }
 
             }

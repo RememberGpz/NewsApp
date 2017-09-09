@@ -13,6 +13,8 @@
             android:id="@+id/ctl_register"
             android:layout_width="match_parent"
             android:fitsSystemWindows="true"
+            app:title="REGISTER"
+            app:titleEnabled="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -159,11 +161,10 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/btn_getcode_style"
                             android:gravity="center"
-                            android:paddingBottom="5dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:paddingTop="5dp"
-                            android:text="获取"
+                            android:text="Get Code"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 

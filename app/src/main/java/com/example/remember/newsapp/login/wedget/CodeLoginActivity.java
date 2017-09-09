@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.RegisterDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
 
@@ -37,46 +40,37 @@ import static com.example.remember.newsapp.login.wedget.RegisterActivity.isMobil
 
 public class CodeLoginActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView tvGetCode,tvLogin;
-    private EditText etPhone,etCode;
+    private MaterialEditText etPhone,etCode;
     private String phone,code;
     private Toolbar toolbar;
     private LoadingDialog loadingDialog;
     private RegisterDialog dialog;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codelogin);
         initView();
-        toolbar = (Toolbar)findViewById(R.id.tb_codelogin);
-        toolbar.setNavigationIcon(R.drawable.back);
-        TextView title = toolbar.findViewById(R.id.tb_title);
-        title.setText("动 态 登 录");
+        toolbar = (Toolbar) findViewById(R.id.tool_bar_codelogin);
+        collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.ctl_codelogin);
+        collapsingToolbarLayout.setTitle("Code Login");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
         }
-
-        actionBar.setTitle("");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
     }
+
 
     private void initView(){
         loadingDialog = new LoadingDialog(this);
-        dialog = new RegisterDialog(this,R.style.dialog_register,1,"该手机还没有注册，现在\n去注册吧");
+        dialog = new RegisterDialog(this,R.style.dialog_register,1,"The Mobile Isn't Register\nAre You Want To Register Now?");
         tvGetCode = (TextView)findViewById(R.id.tv_lg_getcode);
         tvLogin = (TextView)findViewById(R.id.tv_codelg);
         tvGetCode.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
-        etPhone = (EditText)findViewById(R.id.et_lg_phone);
-        etCode = (EditText)findViewById(R.id.et_lg_code);
+        etPhone = (MaterialEditText)findViewById(R.id.et_lg_phone);
+        etCode = (MaterialEditText)findViewById(R.id.et_lg_code);
     }
     @Override
     public void onClick(View view) {
@@ -85,24 +79,35 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                 getCode();
                 break;
             case R.id.tv_codelg:
-
                 login();
                 break;
         }
     }
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /*
-        获取短信验证码的方法
-    */
+            获取短信验证码的方法
+        */
     private void getCode(){
 
         phone = etPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)){
-            ToastUtil.showToast("请输入手机号码");
+            Snackbar.make(tvGetCode,"Please Input Mobile！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (!isMobileNO(phone)){
-            ToastUtil.showToast("请输入正确的手机号码");
+            Snackbar.make(tvGetCode,"Please Input Valid Mobile！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         loadingDialog.show();
@@ -123,7 +128,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                                 if (e == null){
                                     BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
                                     btnCountTimer.start();
-                                    ToastUtil.showToast("验证码已发送");
+                                    Snackbar.make(tvGetCode,"The Code Is Sending！",Snackbar.LENGTH_SHORT).show();
 
                                 }else {
                                     Log.i("Register.Log",e.getMessage());
@@ -135,7 +140,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                         dialog.show();
                     }
                 }else {
-                    ToastUtil.showToast("查询失败"+e.getMessage());
+                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
                     loadingDialog.dissmiss();
                 }
             }
@@ -150,11 +155,11 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
         phone = etPhone.getText().toString().trim();
         code = etCode.getText().toString().trim();
         if (TextUtils.isEmpty(phone)){
-            ToastUtil.showToast("请输入手机号码");
+            Snackbar.make(tvGetCode,"Please Input Mobile！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(code)){
-            ToastUtil.showToast("请输入验证码");
+            Snackbar.make(tvGetCode,"Please Input The Code！",Snackbar.LENGTH_SHORT).show();
             return;
         }
         loadingDialog.show();
@@ -168,10 +173,12 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                     CodeLoginActivity.this.finish();
                 }else {
 
-                    Snackbar.make(tvGetCode,"登录失败！",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvGetCode,"Login Failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
                     Log.i("CodeLoginActivity.Log",e.getMessage());
                 }
             }
         });
     }
+
+
 }
