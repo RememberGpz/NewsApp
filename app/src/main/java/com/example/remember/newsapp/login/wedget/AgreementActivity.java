@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.utils.LoadingDialog;
 
@@ -32,6 +33,7 @@ public class AgreementActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agreement);
+//        MyApplication.getInstance().addAty(this);
         loadingDialog = new LoadingDialog(this);
         wvAgmt = (WebView)findViewById(R.id.wv_agreement);
         toolbar = (Toolbar)findViewById(R.id.tb_agreement);

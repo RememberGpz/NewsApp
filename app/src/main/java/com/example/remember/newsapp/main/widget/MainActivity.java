@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.remember.newsapp.Commons.Urls;
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.about.widget.AboutActivity;
 import com.example.remember.newsapp.beans.Picture;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        MyApplication.getInstance().addAty(this);
+
         loadingDialog = new LoadingDialog(this);
 
         currentTime = 0;
@@ -228,8 +231,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                     list.clear();
                     Log.i("MainActivity==",String.valueOf(list.size()));
                 }
-
-                this.finish();
+                exit();
             }else {
                 currentTime = System.currentTimeMillis();
                 Snackbar.make(dl,"Press Again Exit App",Snackbar.LENGTH_SHORT).show();

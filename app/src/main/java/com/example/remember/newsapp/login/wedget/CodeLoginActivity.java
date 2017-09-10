@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.remember.newsapp.Commons.ActivityTypes;
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.BtnCountTimer;
@@ -53,6 +54,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codelogin);
+//        MyApplication.getInstance().addAty(this);
         initView();
         toolbar = (Toolbar) findViewById(R.id.tool_bar_codelogin);
         collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.ctl_codelogin);

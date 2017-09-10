@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.remember.newsapp.Commons.ActivityTypes;
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.beans.userbeans.User;
 import com.example.remember.newsapp.utils.BtnCountTimer;
@@ -67,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+//        MyApplication.getInstance().addAty(this);
         Bmob.initialize(this,"cfbf1ec371ed270f91166ff6c59391d9");
         loadingDialog = new LoadingDialog(this);
 //        dialog = new RegisterDialog(this,R.style.dialog_register,0,"Register Successful! Go To Login?");

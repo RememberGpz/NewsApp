@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.beans.newsbeans.ImageSrcBean;
 import com.example.remember.newsapp.beans.userbeans.User;
@@ -199,5 +200,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        MyApplication.getInstance().removeAllAty();
+        super.onBackPressed();
     }
 }

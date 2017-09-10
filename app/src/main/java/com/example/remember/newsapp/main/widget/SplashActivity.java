@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.login.wedget.LoginActivity;
 import com.example.remember.newsapp.utils.UserInfoManager;
@@ -31,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE); //无title
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //全屏
 
@@ -40,6 +43,8 @@ public class SplashActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         setContentView(R.layout.activity_splash);
+
+//        MyApplication.getInstance().addAty(this);
 
         initBmob();              //初始化bmobSDK
 
