@@ -3,7 +3,13 @@
     package="com.example.remember.newsapp">
 
 
-
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -69,7 +75,7 @@
         <service
             android:name=".services.AutoUpdateService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>
