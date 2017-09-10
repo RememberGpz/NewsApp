@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 this.finish();
             }else {
                 currentTime = System.currentTimeMillis();
-                Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+                Snackbar.make(dl,"Press Again Exit App",Snackbar.LENGTH_SHORT).show();
             }
         }
     }
@@ -167,19 +168,19 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void switchNews() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new NewsFragment()).commit();
-        getSupportActionBar().setTitle("新闻");
+        getSupportActionBar().setTitle("News");
     }
 
     @Override
     public void switchPicture() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new PictureFragment()).commit();
-        getSupportActionBar().setTitle("图片");
+        getSupportActionBar().setTitle("Pictures");
     }
 
     @Override
     public void switchWeather() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new WeatherFragment()).commit();
-        getSupportActionBar().setTitle("天气");
+        getSupportActionBar().setTitle("Weather");
     }
 
     @Override

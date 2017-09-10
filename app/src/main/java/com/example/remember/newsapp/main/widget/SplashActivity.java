@@ -71,6 +71,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void skip (){
+
         Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();

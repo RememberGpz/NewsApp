@@ -43,7 +43,7 @@
         //登录
         <activity android:name=".login.wedget.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBarRegister"/>
+            android:theme="@style/AppTheme.NoActionBar1"/>
 
         //注册
         <activity android:name=".login.wedget.RegisterActivity"
@@ -52,7 +52,7 @@
         //动态登录
         <activity android:name=".login.wedget.CodeLoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar1"/>
+            android:theme="@style/AppTheme.NoActionBarRegister"/>
         //协议
         <activity android:name=".login.wedget.AgreementActivity"
             android:screenOrientation="portrait"

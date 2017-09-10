@@ -5,28 +5,28 @@
         >
         <item
             android:id="@+id/item_news"
-            android:title="     新    闻"
+            android:title="     News"
             android:icon="@drawable/news"
             android:checked="true"
             />
         <item
             android:id="@+id/item_picture"
-            android:title="     图     片"
+            android:title="   Pictures"
             android:icon="@drawable/picture"
             />
         <item
             android:id="@+id/item_weather"
-            android:title="     天     气"
+            android:title="   Weather"
             android:icon="@drawable/weather"
             />
     </group>
-    <item android:title="  其   他">
+    <item android:title="  Others">
         <menu >
             <group android:checkableBehavior="single">
             <item android:id="@+id/item_aboutme" android:icon="@drawable/aboutme"
-            android:title="     关     于"/>
+            android:title="     About"/>
             <item android:id="@+id/item_exit" android:icon="@drawable/exit"
-            android:title="     退    出" />
+            android:title="     Exit" />
             </group>
         </menu>
     </item>

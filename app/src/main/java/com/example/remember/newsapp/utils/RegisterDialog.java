@@ -3,9 +3,10 @@ package com.example.remember.newsapp.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -77,4 +78,6 @@ public class RegisterDialog extends Dialog implements View.OnClickListener{
 
         }
     }
+
+
 }

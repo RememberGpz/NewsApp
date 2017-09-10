@@ -16,12 +16,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.remember.newsapp.Commons.ActivityTypes;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
+import com.example.remember.newsapp.utils.MdDialog;
 import com.example.remember.newsapp.utils.RegisterDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.example.remember.newsapp.utils.UserInfoManager;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
@@ -44,7 +47,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
     private String phone,code;
     private Toolbar toolbar;
     private LoadingDialog loadingDialog;
-    private RegisterDialog dialog;
+//    private RegisterDialog dialog;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
 
     private void initView(){
         loadingDialog = new LoadingDialog(this);
-        dialog = new RegisterDialog(this,R.style.dialog_register,1,"The Mobile Isn't Register\nAre You Want To Register Now?");
+//        dialog = new RegisterDialog(this,R.style.dialog_register,1,"The Mobile Isn't Register\nAre You Want To Register Now?");
         tvGetCode = (TextView)findViewById(R.id.tv_lg_getcode);
         tvLogin = (TextView)findViewById(R.id.tv_codelg);
         tvGetCode.setOnClickListener(this);
@@ -137,7 +140,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                         });
                     }else {
                         loadingDialog.dissmiss();
-                        dialog.show();
+                        MdDialog.showDialog(CodeLoginActivity.this,"The Mobile Isn't Register,Are You Want To Register Now?","Tip:", ActivityTypes.CODELOGIN_ATY);
                     }
                 }else {
                     Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
@@ -168,6 +171,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
             public void done(BmobException e) {
                 loadingDialog.dissmiss();
                 if (e == null){
+                    UserInfoManager.getManager().saveUserInfo(CodeLoginActivity.this,phone,"",1);     //1代表是手机号码登录
                     Intent intent = new Intent(CodeLoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     CodeLoginActivity.this.finish();

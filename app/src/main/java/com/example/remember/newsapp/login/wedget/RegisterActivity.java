@@ -21,10 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.remember.newsapp.Commons.ActivityTypes;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.beans.userbeans.User;
 import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
+import com.example.remember.newsapp.utils.MdDialog;
 import com.example.remember.newsapp.utils.RegisterDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -54,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvGetCode,tvRegister,tvAgreement,tvLoginHere;
     private String phoneNum,password,code,name;
     private LoadingDialog loadingDialog;
-    private RegisterDialog dialog;
+//    private RegisterDialog dialog;
     private ImageView ivPsd;
     private boolean psdFlag;  //用于密码可视与不可视的开关变量
 
@@ -67,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         Bmob.initialize(this,"cfbf1ec371ed270f91166ff6c59391d9");
         loadingDialog = new LoadingDialog(this);
-        dialog = new RegisterDialog(this,R.style.dialog_register,0,"Register Successful! Go To Login?");
+//        dialog = new RegisterDialog(this,R.style.dialog_register,0,"Register Successful! Go To Login?");
         initView();
     }
 
@@ -270,7 +272,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         public void done(String s, BmobException e) {
                                             loadingDialog.dissmiss();
                                             if (e==null){
-                                                dialog.show();
+                                                MdDialog.showDialog(RegisterActivity.this,"Register Successful! Go To Login?","Tip:", ActivityTypes.REGISTER_ATY);
                                             }else {
                                                 Snackbar.make(tvRegister,"Register Failed！",Snackbar.LENGTH_SHORT).show();
                                                 Log.i("Register.Log",e.getMessage());

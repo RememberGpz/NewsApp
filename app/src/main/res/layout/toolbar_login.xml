@@ -3,7 +3,7 @@
     android:id="@+id/tool_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/toolbar_bg"
+    android:background="@color/colorPrimary"
 
     android:theme="@style/ThemeOverlay.AppCompat.Light"
     app:layout_scrollFlags="scroll|enterAlways"
@@ -18,6 +18,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/default_text"
-        android:text="\?"
         android:textSize="20sp" />
 </android.support.v7.widget.Toolbar>

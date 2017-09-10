@@ -47,10 +47,10 @@ public class NewsFragment extends Fragment implements ViewPager.OnPageChangeList
 
     private void setupViewPager(ViewPager viewPager){
         MyAdapter adapter =new MyAdapter(getChildFragmentManager());
-        adapter.addFragment(NewsListFragment.getNewListFragment(HEAD),"头条");
+        adapter.addFragment(NewsListFragment.getNewListFragment(HEAD),"News");
         adapter.addFragment(NewsListFragment.getNewListFragment(NBA),"NBA");
-        adapter.addFragment(NewsListFragment.getNewListFragment(CAR),"汽车");
-        adapter.addFragment(NewsListFragment.getNewListFragment(JOKE),"笑话");
+        adapter.addFragment(NewsListFragment.getNewListFragment(CAR),"Car");
+        adapter.addFragment(NewsListFragment.getNewListFragment(JOKE),"Joke");
         viewPager.setAdapter(adapter);
     }
 

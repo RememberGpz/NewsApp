@@ -6,11 +6,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar_codeLogin"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/ctl_codelogin"
             android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
             app:title="CODE LOGIN"
             app:titleEnabled="true"
             app:contentScrim="@color/colorPrimary"

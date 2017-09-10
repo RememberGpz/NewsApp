@@ -1,6 +1,7 @@
 package com.example.remember.newsapp.login.wedget;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -24,6 +25,7 @@ import com.example.remember.newsapp.beans.userbeans.User;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.example.remember.newsapp.utils.UserInfoManager;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoadingDialog loadingDialog;
     private ImageView ivPsd;
     private boolean psdFlag ;
+    private int type = 0;  //用户判断用户是用用户名登录还是手机号码登录 0代表用户名 1代表手机号码
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 break;
-            case R.id.tv_code_login1:
+            case R.id.tv_code_login1:              //如果是点击了CodeLogin跳转到手机验证码登录
+
                 Intent intent1 = new Intent(LoginActivity.this,CodeLoginActivity.class);
                 startActivity(intent1);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -141,7 +145,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (jsonArray.length()>0) {
                     loadingDialog.dissmiss();
                       //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
-                    isTruePassword(jsonArray,password);
+                    isTruePassword(jsonArray,password,name1);
+                    type=0;
                 }else {  //如果通过用户名没有查找到，则通过手机号码再查一遍
                     queryPhone(name1,password);
                 }
@@ -162,7 +167,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void done(JSONArray jsonArray, BmobException e) {
                 if (e == null){
                     if (jsonArray.length()>0){  //如果有数据则说明该手机号码有注册，继续判断密码是否正确
-                        isTruePassword(jsonArray,password);
+                        isTruePassword(jsonArray,password,phone);
+                        type =1;
                     }else {
                         loadingDialog.dissmiss();
                         Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();
@@ -175,10 +181,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void isTruePassword(JSONArray jsonArray,String password){
+    private void isTruePassword(JSONArray jsonArray,String password,String phone){
         loadingDialog.dissmiss();
         try {
             if (jsonArray.getJSONObject(0).getString("password").equals(password)) {   //如果密码相等则登录成功
+                UserInfoManager.getManager().saveUserInfo(this,phone,password,type);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
