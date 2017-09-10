@@ -1,5 +1,6 @@
 package com.example.remember.newsapp.main.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,11 +13,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -32,16 +35,24 @@ import com.example.remember.newsapp.services.AutoUpdateService;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.OkHttpUtil;
 import com.example.remember.newsapp.utils.ToastUtil;
+import com.example.remember.newsapp.utils.UserInfoManager;
 import com.example.remember.newsapp.weather.widget.WeatherFragment;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.litepal.crud.DataSupport;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.zip.Inflater;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -54,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private ActionBarDrawerToggle toggle;
     private SharedPreferences sp ;
     private LoadingDialog loadingDialog;
+    private SharedPreferences userSP;
+    private String userName;
+    private TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +76,19 @@ public class MainActivity extends AppCompatActivity implements MainView{
         loadingDialog = new LoadingDialog(this);
 
         currentTime = 0;
+        userSP = getSharedPreferences("userInfo", Context.MODE_PRIVATE);          //获取保存用户信息的sp
+        userName = userSP.getString("userName","");
+
         sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+
 
         Intent intent = new Intent(this, AutoUpdateService.class);      //开启服务
         startService(intent);
 
         mainPresenterImpl= new MainPresenterImpl(this);
+
+
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -76,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         toggle = new ActionBarDrawerToggle(this,dl,toolbar,R.string.drawer_open,R.string.drawer_close);
         toggle.syncState();
         dl.setDrawerListener(toggle);
-
 
 
         nv = (NavigationView)findViewById(R.id.nv);
@@ -88,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
         }else {
             loadBingPic();
         }
+
+        tvName = (TextView)view.findViewById(R.id.tv_name);
+        setUserInfo();         //设置用户的用户名
+
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -101,6 +125,54 @@ public class MainActivity extends AppCompatActivity implements MainView{
         switchNews();
     }
 
+    private void setUserInfo(){
+        int type = userSP.getInt("type",0);
+        if (type==0){
+            if (!TextUtils.isEmpty(userName)){
+                Log.i("MainActivity.Log","执行了type ==0");
+                tvName.setText(userName);
+            }else {
+                Snackbar.make(tvName,"Data Error!",Snackbar.LENGTH_SHORT).show();
+            }
+
+        }else if(type == 1){     //如果是用手机号码登录，先判断sharedpreference里有没有用户名，没有就去后台加载
+            Log.i("MainActivity.Log","zhixing type ==1");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BmobQuery query = new BmobQuery("User");
+                    query.addWhereEqualTo("phoneNum",userName);
+                    query.findObjectsByTable(new QueryListener<JSONArray>() {
+                        @Override
+                        public void done(final JSONArray jsonArray, BmobException e) {
+                            if (e == null){
+                                if (jsonArray.length()>0){
+                                    Log.i("MainActivity.Log","jsonArray.length()>0");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    tvName.setText(jsonArray.getJSONObject(0).getString("name"));
+                                                } catch (JSONException e1) {
+                                                e1.printStackTrace();
+                                                }
+                                            }
+                                        });
+
+                                }else {      //没有数据则证明数据出错
+                                    Snackbar.make(tvName,"Data Error！！",Snackbar.LENGTH_SHORT).show();
+                                }
+                            }else {
+                                Snackbar.make(tvName,"Service Error!",Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }).start();
+
+        }
+
+    }
 
     private void loadBingPic(){
         OkHttpUtil.getOkHttpUtil().sendHttpRequest(Urls.BING_PIC, new Callback() {
@@ -190,6 +262,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void exit() {
+        UserInfoManager.getManager().deleteSP(this);
         this.finish();
     }
+
 }

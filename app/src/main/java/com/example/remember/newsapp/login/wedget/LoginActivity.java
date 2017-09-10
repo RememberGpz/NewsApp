@@ -145,8 +145,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (jsonArray.length()>0) {
                     loadingDialog.dissmiss();
                       //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
-                    isTruePassword(jsonArray,password,name1);
                     type=0;
+                    isTruePassword(jsonArray,password,name1);
+
                 }else {  //如果通过用户名没有查找到，则通过手机号码再查一遍
                     queryPhone(name1,password);
                 }
@@ -167,8 +168,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void done(JSONArray jsonArray, BmobException e) {
                 if (e == null){
                     if (jsonArray.length()>0){  //如果有数据则说明该手机号码有注册，继续判断密码是否正确
-                        isTruePassword(jsonArray,password,phone);
                         type =1;
+                        isTruePassword(jsonArray,password,phone);
+
                     }else {
                         loadingDialog.dissmiss();
                         Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();

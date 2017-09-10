@@ -2,6 +2,7 @@ package com.example.remember.newsapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.example.remember.newsapp.beans.userbeans.UserInfo;
 
@@ -29,5 +30,18 @@ public class UserInfoManager {
         editor.apply();
     }
 
+    public boolean hasUserInfo(Context context){
+        SharedPreferences sp = context.getSharedPreferences("userInfo",Context.MODE_PRIVATE);
+        if (!TextUtils.isEmpty(sp.getString("userName",""))){
+            return true;
+        }
+        else return false;
+    }
+
+    public void deleteSP(Context context){
+        SharedPreferences sp = context.getSharedPreferences("userInfo",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear().commit();
+    }
 
 }

@@ -29,13 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Tom"
-            android:textColor="@android:color/white"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Tom_GPZ@163.com"
+            android:textSize="25sp"
             android:textColor="@android:color/white"
             />
     </LinearLayout>

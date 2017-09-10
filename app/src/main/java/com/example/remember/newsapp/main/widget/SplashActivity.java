@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.login.wedget.LoginActivity;
+import com.example.remember.newsapp.utils.UserInfoManager;
 
 import cn.bmob.v3.Bmob;
 
@@ -71,10 +72,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void skip (){
-
-        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-        startActivity(intent);
-        SplashActivity.this.finish();
+        if (UserInfoManager.getManager().hasUserInfo(this)){
+            Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+            startActivity(intent);
+            SplashActivity.this.finish();
+        }else {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            SplashActivity.this.finish();
+        }
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
 }
