@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.remember.newsapp.R;
+import com.example.remember.newsapp.app.MyApplication;
 import com.example.remember.newsapp.main.widget.MainActivity;
 
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_aboutme);
+        MyApplication.getInstance().addAty(this);
         ivBackground  = (ImageView)findViewById(R.id.iv_aboutme_title);
         ltl = (CollapsingToolbarLayout)findViewById(R.id.collapsingTbL);
         toolbar = (Toolbar)findViewById(R.id.toolbar_aboutme);
@@ -87,25 +89,39 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                             sp.setTitle("测试分享的标题");
                             sp.setTitleUrl("http://sharesdk.cn"); // 标题的超链接
                             sp.setText("测试分享的文本");
-                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/05/21/oESpJ78_533x800.jpg");
+                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
 
                             Platform qq = ShareSDK.getPlatform (QQ.NAME);
                             qq. setPlatformActionListener (AboutActivity.this); // 设置分享事件回调
                             // 执行图文分享
                             qq.share(sp);
                         }else if (item.get("ItemText").equals("Qzone")){
+//                            Platform.ShareParams sp = new Platform.ShareParams();
+//                            sp.setTitle("NewsApp");
+//                            sp.setTitleUrl("https://www.github.com/RememberGpz"); // 标题的超链接
+//                            sp.setText("Android开发...");
+//                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/05/21/oESpJ78_533x800.jpg");
+//
+//// titleUrl是标题的网络链接，QQ和QQ空间等使用
+//// text是分享文本，所有平台都需要这个字段
+//                            Platform qq = ShareSDK.getPlatform (QZone.NAME);
+//                            qq. setPlatformActionListener (AboutActivity.this); // 设置分享事件回调
+//                            // 执行图文分享
+//                            qq.share(sp);
+
                             Platform.ShareParams sp = new Platform.ShareParams();
                             sp.setTitle("NewsApp");
-                            sp.setTitleUrl("https://www.github.com/RememberGpz"); // 标题的超链接
-                            sp.setText("Android开发...");
-                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/05/21/oESpJ78_533x800.jpg");
+                            sp.setTitleUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md"); // 标题的超链接
+                            sp.setText("一款Material Design风格的App");
+                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                            sp.setSite("Remember_Gpz");
+                            sp.setSiteUrl("https://www.github.com/Remember_Gpz");
 
-// titleUrl是标题的网络链接，QQ和QQ空间等使用
-// text是分享文本，所有平台都需要这个字段
-                            Platform qq = ShareSDK.getPlatform (QZone.NAME);
-                            qq. setPlatformActionListener (AboutActivity.this); // 设置分享事件回调
-                            // 执行图文分享
-                            qq.share(sp);
+                            Platform qzone = ShareSDK.getPlatform (QZone.NAME);
+// 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
+                            qzone.setPlatformActionListener (AboutActivity.this);
+// 执行图文分享
+                            qzone.share(sp);
                         }
                         dialog.dismiss();
                     }
