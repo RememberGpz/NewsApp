@@ -15,7 +15,7 @@
 
 
 
-
+*还有很多功能没做,日后更新*
 *登录界面如下图所示：*
 
 ![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)  
@@ -36,6 +36,10 @@
 *协议*
 
 ![协议](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/agreement.gif)  
+
+*主要*
+
+![主要](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/main.gif)  
 
 </br></br></br>
 
