@@ -17,27 +17,27 @@
 </br>
 *登录界面如下图所示：*
 </br>
-![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif) 
-</br>
+![login](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)  
+
 *注册界面*
-</br>
-![注册](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/register.gif)
-</br>
+
+![注册](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/register.gif)  
+
 *分享界面*
-</br>
-![分享](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/share.gif) 
-</br>
+
+![分享](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/share.gif)  
+
 *验证码登录*
-</br>
-![验证码登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/codeLogin.gif) 
-</br>
+
+![验证码登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/codeLogin.gif)  
+
 *协议*
-</br>
-![协议](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/agreement.gif) 
-</br>
+
+![协议](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/agreement.gif)  
+
 </br></br></br>
 
-##biuld.gradle文件依赖</br></br>
+##biuld.gradle文件依赖
 	compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
