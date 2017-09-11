@@ -12,4 +12,8 @@
 
 
 ##已做效果
-![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)
+</br>
+</br>
+</br>
+![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)   ![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/register.gif)
+
