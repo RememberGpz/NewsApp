@@ -115,7 +115,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                             sp.setText("一款Material Design风格的App");
                             sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
                             sp.setSite("Remember_Gpz");
-                            sp.setSiteUrl("https://www.github.com/Remember_Gpz");
+                            sp.setSiteUrl("https://www.github.com/Remember_Gpz/NewsApp/blob/master/README.md");
 
                             Platform qzone = ShareSDK.getPlatform (QZone.NAME);
 // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
