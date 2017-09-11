@@ -91,7 +91,9 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     };
     @Override
     public void onRefresh() {
-        DataSupport.deleteAll(News.class);
+        if (DataSupport.findAll(News.class)!=null) {
+            DataSupport.deleteAll(News.class);
+        }
         newsPresenterImpl.loadNewsList(mType);
 
     }

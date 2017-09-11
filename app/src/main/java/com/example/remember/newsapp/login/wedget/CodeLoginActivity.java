@@ -2,8 +2,6 @@ package com.example.remember.newsapp.login.wedget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -13,18 +11,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.remember.newsapp.Commons.ActivityTypes;
-import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
+import com.example.remember.newsapp.app.MyApplication;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.MdDialog;
-import com.example.remember.newsapp.utils.RegisterDialog;
-import com.example.remember.newsapp.utils.ToastUtil;
 import com.example.remember.newsapp.utils.UserInfoManager;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -54,7 +49,7 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codelogin);
-//        MyApplication.getInstance().addAty(this);
+        MyApplication.getInstance().addAty(this);
         initView();
         toolbar = (Toolbar) findViewById(R.id.tool_bar_codelogin);
         collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.ctl_codelogin);

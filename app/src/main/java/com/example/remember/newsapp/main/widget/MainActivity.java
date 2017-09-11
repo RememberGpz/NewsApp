@@ -20,13 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.remember.newsapp.Commons.Urls;
-import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.about.widget.AboutActivity;
+import com.example.remember.newsapp.app.MyApplication;
 import com.example.remember.newsapp.beans.Picture;
 import com.example.remember.newsapp.main.presenter.MainPresenterImpl;
 import com.example.remember.newsapp.main.view.MainView;
@@ -46,10 +45,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.litepal.crud.DataSupport;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -74,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        MyApplication.getInstance().addAty(this);
+        MyApplication.getInstance().addAty(this);
 
         loadingDialog = new LoadingDialog(this);
 
@@ -265,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void exit() {
         UserInfoManager.getManager().deleteSP(this);
-        this.finish();
+        MyApplication.getInstance().removeAllAty();
     }
 
 }

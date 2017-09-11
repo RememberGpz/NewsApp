@@ -1,6 +1,5 @@
 package com.example.remember.newsapp.login.wedget;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,31 +8,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.remember.newsapp.Commons.ActivityTypes;
-import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
+import com.example.remember.newsapp.app.MyApplication;
 import com.example.remember.newsapp.beans.userbeans.User;
 import com.example.remember.newsapp.utils.BtnCountTimer;
 import com.example.remember.newsapp.utils.LoadingDialog;
 import com.example.remember.newsapp.utils.MdDialog;
-import com.example.remember.newsapp.utils.RegisterDialog;
-import com.example.remember.newsapp.utils.ToastUtil;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
-import org.w3c.dom.Text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +31,6 @@ import java.util.regex.Pattern;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -68,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        MyApplication.getInstance().addAty(this);
+        MyApplication.getInstance().addAty(this);
         Bmob.initialize(this,"cfbf1ec371ed270f91166ff6c59391d9");
         loadingDialog = new LoadingDialog(this);
 //        dialog = new RegisterDialog(this,R.style.dialog_register,0,"Register Successful! Go To Login?");

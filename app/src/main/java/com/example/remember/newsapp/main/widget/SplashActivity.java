@@ -1,10 +1,7 @@
 package com.example.remember.newsapp.main.widget;
 
-import android.animation.Animator;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +12,6 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
 import com.example.remember.newsapp.login.wedget.LoginActivity;
 import com.example.remember.newsapp.utils.UserInfoManager;

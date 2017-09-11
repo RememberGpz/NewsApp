@@ -1,22 +1,25 @@
-package com.example.remember.newsapp;
+package com.example.remember.newsapp.app;
 
 import android.app.Activity;
+import android.app.Application;
 import android.graphics.Typeface;
-import android.icu.text.DateFormat;
+
+import com.mob.MobApplication;
 
 import org.litepal.LitePalApplication;
+import org.litepal.util.Const;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Remember on 2017/9/10.
- */
+public class MyApplication extends MobApplication {
+    private List<Activity> activityList  = new LinkedList<Activity>();
+    private static MyApplication myApplication;
 
-public class MyApplication extends LitePalApplication {
-    public List<Activity> activityList = new LinkedList<>();
-    public static MyApplication myApplication;
+    public MyApplication(){
+        super();
+    }
 
 
     public  static MyApplication getInstance(){
@@ -45,6 +48,7 @@ public class MyApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        LitePalApplication.initialize(this);
         Typeface typeface = Typeface.createFromAsset(getAssets(),"font/cr.otf");
         try {
                 Field field = Typeface.class.getDeclaredField("MONOSPACE");

@@ -1,10 +1,7 @@
 package com.example.remember.newsapp.login.wedget;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,20 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.remember.newsapp.MyApplication;
 import com.example.remember.newsapp.R;
-import com.example.remember.newsapp.beans.newsbeans.ImageSrcBean;
-import com.example.remember.newsapp.beans.userbeans.User;
+import com.example.remember.newsapp.app.MyApplication;
 import com.example.remember.newsapp.main.widget.MainActivity;
 import com.example.remember.newsapp.utils.LoadingDialog;
-import com.example.remember.newsapp.utils.ToastUtil;
 import com.example.remember.newsapp.utils.UserInfoManager;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -35,7 +27,7 @@ import org.json.JSONException;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.SaveListener;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * Created by Remember on 2017/9/4.
@@ -47,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private MaterialEditText metName,metPassword;
     private String name,password;
     private LoadingDialog loadingDialog;
-    private ImageView ivPsd;
+    private ImageView ivPsd,ivQQ,ivWeiBo,ivWeixin;
     private boolean psdFlag ;
     private int type = 0;  //用户判断用户是用用户名登录还是手机号码登录 0代表用户名 1代表手机号码
 
@@ -55,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        MyApplication.getInstance().addAty(this);
         loadingDialog = new LoadingDialog(this);
         initView();
     }
@@ -70,7 +63,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         metName = (MaterialEditText) findViewById(R.id.met_login_name);
         metPassword = (MaterialEditText) findViewById(R.id.met_login_password);
         ivPsd = (ImageView)findViewById(R.id.iv_psd);
+        ivQQ = (ImageView)findViewById(R.id.iv_qq);
+        ivWeiBo = (ImageView)findViewById(R.id.iv_weibo);
+        ivWeixin= (ImageView)findViewById(R.id.iv_weixin);
         ivPsd.setOnClickListener(this);
+        ivQQ.setOnClickListener(this);
+        ivWeiBo.setOnClickListener(this);
+        ivWeixin.setOnClickListener(this);
         psdFlag = false;
 
 
@@ -105,6 +104,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     metPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());  //隐藏密码
                     metPassword.setSelection(metPassword.getText().length());                          //把光标移至文本最后
                 }
+                break;
+            case R.id.iv_qq:
+                showShare();
 
         }
     }
@@ -131,6 +133,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         quetyUser(name,password);
 
     }
+
+
 
     private void quetyUser(final String name1, final String password){
         final BmobQuery query = new BmobQuery("User");
@@ -204,7 +208,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-//        MyApplication.getInstance().removeAllAty();
+        MyApplication.getInstance().removeAllAty();
         super.onBackPressed();
+    }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+//关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("标题");
+// titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl("http://sharesdk.cn");
+// text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+// url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+// site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+// siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
+
+// 启动分享GUI
+        oks.show(this);
     }
 }
