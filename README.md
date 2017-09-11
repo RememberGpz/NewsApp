@@ -15,9 +15,11 @@
 </br>
 </br>
 </br>
+***
+</br>
 *登录界面如下图所示：*
 </br>
-![login](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)  
+![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)  
 
 *注册界面*
 
@@ -36,8 +38,9 @@
 ![协议](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/agreement.gif)  
 
 </br></br></br>
+***
+##biuld.gradle文件依赖</br> </br>
 
-##biuld.gradle文件依赖
 	compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
