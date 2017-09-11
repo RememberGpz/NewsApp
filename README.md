@@ -12,14 +12,13 @@
 
 ***
 ## 已做效果
-</br>
-</br>
-</br>
-***
-</br>
+
+
+
+
 *登录界面如下图所示：*
-</br>
 ![登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/login.gif)  
+
 
 *注册界面*
 
