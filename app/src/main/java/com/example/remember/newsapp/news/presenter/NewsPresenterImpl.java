@@ -35,8 +35,8 @@ public class NewsPresenterImpl implements NewsPresenter {
     }
 
     @Override
-    public void loadNewsList(final int type) {
-        String url = getUrl(type);
+    public void loadNewsList(final int type,int pagerIndex) {
+        String url = getUrl(type,pagerIndex);
 //        String url1 = "http://c.m.163.com/nc/article/headline/" + "T1348647909107" +"0-20.html";
         OkHttpUtil.getOkHttpUtil().sendHttpRequest( url, new Callback() {
             @Override
@@ -73,7 +73,7 @@ public class NewsPresenterImpl implements NewsPresenter {
         });
     }
 
-    private String getUrl(int type){
+    private String getUrl(int type,int pagerIndex){
         StringBuffer url= new StringBuffer();
         switch (type){
             case NewsFragment.HEAD:
@@ -89,6 +89,6 @@ public class NewsPresenterImpl implements NewsPresenter {
                 url.append(Urls.COMMON_URL).append(Urls.JOKE_ID);
                 break;
         }
-        return url.append("/0-20.html").toString();
+        return url.append(pagerIndex).append(20 + ".html").toString();
     }
 }

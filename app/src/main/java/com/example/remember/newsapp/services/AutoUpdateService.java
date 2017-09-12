@@ -53,15 +53,15 @@ public class AutoUpdateService extends Service {
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
-                if (response!=null){
-                    final String bing_pic1 = response.body().string();
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("pic",bing_pic1);
-                    editor.apply();
+                public void onResponse(Response response) throws IOException {
+                    if (response!=null){
+                        final String bing_pic1 = response.body().string();
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("pic",bing_pic1);
+                        editor.apply();
 
-                }
+                    }
 
             }
         });

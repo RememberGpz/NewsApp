@@ -74,6 +74,7 @@ public class Utility {
                     news1.setImgsrc(jsonObject.getString("imgsrc"));
                     news1.setMtime(jsonObject.getString("mtime"));
                     news1.setSource(jsonObject.getString("source"));
+                    news1.setDocId(jsonObject.getString("docId"));
                     news1.setType(type);
                     news1.save();
                 }

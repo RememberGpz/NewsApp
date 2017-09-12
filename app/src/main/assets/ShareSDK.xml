@@ -59,8 +59,10 @@
         SortId="1"
         AppKey="3342632976"
         AppSecret="9ad074acfdcd493e22f3a8697ddb5c3e"
-        RedirectUrl="http://www.sharesdk.cn"
         ShareByAppClient="true"
+		ShareByWebApi = "true"
+		isNewAPi="true"
+		RedirectUrl="http://www.sharesdk.cn"
         Enable="true" />
 
     <TencentWeibo
@@ -95,26 +97,24 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
-		userName="gh_afb25ac019c9"
-		path="pages/index/index.html?id=1"
+        AppId="wxdb0f7a71c883b423"
+        AppSecret="daecf556b42463ce11c2421f9570cac7"
         BypassApproval="true"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxdb0f7a71c883b423"
+        AppSecret="daecf556b42463ce11c2421f9570cac7"
         BypassApproval="true"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxdb0f7a71c883b423"
+        AppSecret="daecf556b42463ce11c2421f9570cac7"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

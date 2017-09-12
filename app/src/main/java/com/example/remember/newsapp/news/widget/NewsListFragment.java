@@ -1,5 +1,6 @@
 package com.example.remember.newsapp.news.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.example.remember.newsapp.Commons.Urls;
 import com.example.remember.newsapp.R;
@@ -35,7 +38,8 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     private NewsPresenterImpl newsPresenterImpl;
     private NewsListAdapter newsListAdapter;
     private int mType = NewsFragment.HEAD;
-
+    private int pagerIndex=0;
+    private LinearLayoutManager layoutManager;
     public static NewsListFragment getNewListFragment(int tye){
         Bundle bundle = new Bundle();
         bundle.putInt("type",tye);
@@ -58,11 +62,12 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
         srl_news = (SwipeRefreshLayout)view.findViewById(R.id.srl_news);
         srl_news.setColorSchemeResources(R.color.colorPrimary);
         srl_news.setOnRefreshListener(this);          //一定要为swipeReflreshLayout设置监听器，不然下拉后，setRelreshing(false)为无效；
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
         newsPresenterImpl = new NewsPresenterImpl(this);
         rv_news.setLayoutManager(layoutManager);
         rv_news.addOnScrollListener(mOnScrollListener);
         newsListAdapter = new NewsListAdapter(getContext());
+        newsListAdapter.setItemOnClicklistener(itemOnClicklistener);
         rv_news.setAdapter(newsListAdapter);
         onRefresh();
         return view;
@@ -78,10 +83,22 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
         newsListAdapter.setData(newses);
     }
 
+    private NewsListAdapter.ItemOnClicklistener itemOnClicklistener = new NewsListAdapter.ItemOnClicklistener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            News news = newsListAdapter.getItem(position);
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra("news", news);
+
+        }
+    };
+
     private RecyclerView.OnScrollListener mOnScrollListener= new RecyclerView.OnScrollListener() {
+        int lastVisibleItem;
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            lastVisibleItem = layoutManager.findLastVisibleItemPosition();
         }
 
         @Override
@@ -91,10 +108,8 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     };
     @Override
     public void onRefresh() {
-        if (DataSupport.findAll(News.class)!=null) {
-            DataSupport.deleteAll(News.class);
-        }
-        newsPresenterImpl.loadNewsList(mType);
+        DataSupport.deleteAll(News.class);
+        newsPresenterImpl.loadNewsList(mType,pagerIndex);
 
     }
 

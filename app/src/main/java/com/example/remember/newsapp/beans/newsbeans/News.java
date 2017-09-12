@@ -4,13 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Remember on 2017/9/2.
  */
 
-public class News extends DataSupport{
+public class News extends DataSupport implements Serializable{
 
         /**
          * imgextra : [{"imgsrc":"http://cms-bucket.nosdn.127.net/8259b113c948415b9c842cf24c1a0fc720170902204833.jpeg"},{"imgsrc":"http://cms-bucket.nosdn.127.net/4d76bd17f694404fb2567d42b7043ff620170902204833.jpeg"}]
@@ -50,7 +51,17 @@ public class News extends DataSupport{
          * ltitle : 东风导弹发射成功 他奖励官兵仅2个煮熟的土豆
          * subtitle :
          */
-        private int id;
+        private String docId;
+
+    public String getDocId() {
+        return docId;
+    }
+
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    private int id;
     private int type;     //类别类型
 
     public int getType() {

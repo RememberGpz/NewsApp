@@ -27,6 +27,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     public NewsListAdapter(Context context){
         this.context = context;
     }
+    private ItemOnClicklistener itemOnClicklistener;
 
     public void setData(List<News> news){
         this.news = news;
@@ -39,6 +40,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    public void setItemOnClicklistener(ItemOnClicklistener itemOnClicklistener){
+        this.itemOnClicklistener = itemOnClicklistener;
+    }
+
     @Override
     public void onBindViewHolder(NewsListAdapter.ViewHolder holder, int position) {
         News news1 = news.get(position);
@@ -48,6 +53,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         Glide.with(context).load(news1.getImgsrc()).error(R.drawable.load_error).placeholder(R.drawable.default_picture).into(holder.iv_newslist_image);
     }
 
+    public News getItem(int position) {
+        return news == null ? null : news.get(position);
+    }
+
+    public interface ItemOnClicklistener{
+        public void onItemClick(View view, int position);
+    }
 
     @Override
     public int getItemCount() {

@@ -2,6 +2,8 @@ package com.example.remember.newsapp.about.widget;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,8 +28,12 @@ import java.util.HashMap;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
  * Created by Administrator on 2017/8/31.
@@ -43,6 +50,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_aboutme);
+
         MyApplication.getInstance().addAty(this);
         ivBackground  = (ImageView)findViewById(R.id.iv_aboutme_title);
         ltl = (CollapsingToolbarLayout)findViewById(R.id.collapsingTbL);
@@ -86,15 +94,26 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                         HashMap<String, Object> item=(HashMap<String, Object>) adapterView.getItemAtPosition(i);
                         if(item.get("ItemText").equals("QQ")){
                             Platform.ShareParams sp = new Platform.ShareParams();
-                            sp.setTitle("测试分享的标题");
-                            sp.setTitleUrl("http://sharesdk.cn"); // 标题的超链接
-                            sp.setText("测试分享的文本");
+                            sp.setTitle("NewsApp");
+                            sp.setTitleUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md"); // 标题的超链接
+                            sp.setText("一款Material Design风格的App");
                             sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-
+                            sp.setSite("Remember_Gpz");
+                            sp.setSiteUrl("https://www.github.com/Remember_Gpz/NewsApp/blob/master/README.md");
                             Platform qq = ShareSDK.getPlatform (QQ.NAME);
                             qq. setPlatformActionListener (AboutActivity.this); // 设置分享事件回调
                             // 执行图文分享
                             qq.share(sp);
+
+//                            OnekeyShare oks = new OnekeyShare();
+//
+//                            oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+//                            oks.setTitleUrl("http://www.baidu.com");
+//                            oks.setText("text");
+//                            oks.setTitle("标题");
+//
+//                            oks.setPlatform(QQ.NAME);
+//                            oks.show(AboutActivity.this);
                         }else if (item.get("ItemText").equals("Qzone")){
 //                            Platform.ShareParams sp = new Platform.ShareParams();
 //                            sp.setTitle("NewsApp");
@@ -122,6 +141,38 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                             qzone.setPlatformActionListener (AboutActivity.this);
 // 执行图文分享
                             qzone.share(sp);
+                        }else if(item.get("ItemText").equals("WeChat")){
+                            Log.i("about.Log","有执行");
+                            Platform.ShareParams sp = new Platform.ShareParams();
+//                            sp.setTitle("微信分享");
+//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+                            sp.setText("NewsApp");
+//                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                            sp.setShareType(Platform.SHARE_TEXT);
+                            Platform weChat = ShareSDK.getPlatform (Wechat.NAME);
+                            weChat.setPlatformActionListener(AboutActivity.this);
+                            weChat.share(sp);
+
+                        }else if(item.get("ItemText").equals("Moments")) {
+                            Platform.ShareParams sp = new Platform.ShareParams();
+//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+//                            sp.setTitle("标题");
+                            sp.setText("NewsApp");
+//                            sp.setImageData(BitmapFactory.decodeResource(getResources(),R.drawable.aboutme_bg));
+                            sp.setShareType(Platform.SHARE_TEXT);
+                            Platform moments = ShareSDK.getPlatform (WechatMoments.NAME);
+                            moments.setPlatformActionListener(AboutActivity.this);
+                            moments.share(sp);
+                        }else if(item.get("ItemText").equals("Weibo")) {
+                            Platform.ShareParams sp = new Platform.ShareParams();
+//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+//                            sp.setTitle("标题");
+                            sp.setText("我的分享https://www.github.com/RememberGpz/NewsApp/blob/master/README.md");
+                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+
+                            Platform moments = ShareSDK.getPlatform (SinaWeibo.NAME);
+                            moments.setPlatformActionListener(AboutActivity.this);
+                            moments.share(sp);
                         }
                         dialog.dismiss();
                     }

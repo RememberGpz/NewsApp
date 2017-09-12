@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface NewsPresenter {
 
-    void loadNewsList(int type);
+    void loadNewsList(int type,int pagerIndex);
 }
