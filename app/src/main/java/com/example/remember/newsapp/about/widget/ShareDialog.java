@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cn.sharesdk.system.text.login.gui.GroupListView;
 
 /**
  * Created by Administrator on 2017/9/11.

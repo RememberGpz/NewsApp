@@ -50,7 +50,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.FindCallback;
 
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -142,11 +142,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 public void run() {
                     BmobQuery query = new BmobQuery("User");
                     query.addWhereEqualTo("phoneNum",userName);
-                    query.findObjectsByTable(new QueryListener<JSONArray>() {
+                    query.findObjects(MainActivity.this, new FindCallback() {
                         @Override
-                        public void done(final JSONArray jsonArray, BmobException e) {
-                            if (e == null){
-                                if (jsonArray.length()>0){
+                        public void onSuccess(final JSONArray jsonArray) {
+                            if (jsonArray.length()>0){
                                     Log.i("MainActivity.Log","jsonArray.length()>0");
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -162,11 +161,38 @@ public class MainActivity extends AppCompatActivity implements MainView{
                                 }else {      //没有数据则证明数据出错
                                     Snackbar.make(tvName,"Data Error！！",Snackbar.LENGTH_SHORT).show();
                                 }
-                            }else {
-                                Snackbar.make(tvName,"Service Error!",Snackbar.LENGTH_SHORT).show();
-                            }
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Snackbar.make(tvName,"Service Error!",Snackbar.LENGTH_SHORT).show();
                         }
                     });
+//                    query.findObjectsByTable(new QueryListener<JSONArray>() {
+//                        @Override
+//                        public void done(final JSONArray jsonArray, BmobException e) {
+//                            if (e == null){
+//                                if (jsonArray.length()>0){
+//                                    Log.i("MainActivity.Log","jsonArray.length()>0");
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                try {
+//                                                    tvName.setText(jsonArray.getJSONObject(0).getString("name"));
+//                                                } catch (JSONException e1) {
+//                                                e1.printStackTrace();
+//                                                }
+//                                            }
+//                                        });
+//
+//                                }else {      //没有数据则证明数据出错
+//                                    Snackbar.make(tvName,"Data Error！！",Snackbar.LENGTH_SHORT).show();
+//                                }
+//                            }else {
+//                                Snackbar.make(tvName,"Service Error!",Snackbar.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
                 }
             }).start();
 

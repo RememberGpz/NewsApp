@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.example.remember.newsapp.R;
 import com.mob.MobApplication;
 import com.mob.MobSDK;
 import com.mob.tools.utils.BitmapHelper;
@@ -257,6 +256,5 @@ public class OnekeyShare {
 
 		themeImpl.show(context.getApplicationContext());
 	}
-
 
 }

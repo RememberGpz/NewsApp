@@ -7,7 +7,6 @@ import com.example.remember.newsapp.Commons.Urls;
 import com.example.remember.newsapp.beans.Picture;
 import com.example.remember.newsapp.beans.newsbeans.News;
 import com.example.remember.newsapp.news.widget.NewsFragment;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +73,7 @@ public class Utility {
                     news1.setImgsrc(jsonObject.getString("imgsrc"));
                     news1.setMtime(jsonObject.getString("mtime"));
                     news1.setSource(jsonObject.getString("source"));
-                    news1.setDocId(jsonObject.getString("docId"));
+                    news1.setDocId(jsonObject.getString("docid"));
                     news1.setType(type);
                     news1.save();
                 }

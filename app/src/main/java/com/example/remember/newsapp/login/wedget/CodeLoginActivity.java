@@ -2,6 +2,7 @@ package com.example.remember.newsapp.login.wedget;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -28,8 +29,10 @@ import org.json.JSONArray;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.VerifySMSCodeListener;
 
 import static com.example.remember.newsapp.login.wedget.RegisterActivity.isMobileNO;
 
@@ -115,36 +118,81 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
         BmobQuery query = new BmobQuery("User");              //进行手机号码进行查询，判断该手机号码是否已经被注册
         query.addWhereEqualTo("phoneNum",phone);
         query.order("createdAt");
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
+        query.findObjects(CodeLoginActivity.this, new FindCallback() {
             @Override
-            public void done(JSONArray jsonArray, BmobException e) {
+            public void onSuccess(JSONArray jsonArray) {
+                //如果有数据则证明手机号码已经注册过了
+                if (jsonArray.length()>0){
+                    BmobSMS.requestSMSCode(CodeLoginActivity.this, phone, "注册验证码", new RequestSMSCodeListener() {
+                        @Override
+                        public void done(Integer integer, BmobException e) {//如果没有数据则发送验证码
+                            loadingDialog.dissmiss();
+                            if (e == null){
+                                BtnCountTimer btnCountTimer = new BtnCountTimer(CodeLoginActivity.this,tvGetCode,60*1000,1000);
+                                btnCountTimer.start();
+                                Snackbar.make(tvGetCode,"The Code Is Sending！",Snackbar.LENGTH_SHORT).show();
 
-                if (e == null){   //如果有数据则证明手机号码已经注册过了
-                    if (jsonArray.length()>0){
-                        BmobSMS.requestSMSCode(phone, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
-                            @Override
-                            public void done(Integer integer, BmobException e) {
-                                loadingDialog.dissmiss();
-                                if (e == null){
-                                    BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
-                                    btnCountTimer.start();
-                                    Snackbar.make(tvGetCode,"The Code Is Sending！",Snackbar.LENGTH_SHORT).show();
-
-                                }else {
-                                    Log.i("Register.Log",e.getMessage());
-                                }
+                            }else {
+                                Log.i("Register.Log",e.getMessage());
                             }
-                        });
-                    }else {
-                        loadingDialog.dissmiss();
-                        MdDialog.showDialog(CodeLoginActivity.this,"The Mobile Isn't Register,Are You Want To Register Now?","Tip:", ActivityTypes.CODELOGIN_ATY);
-                    }
+                        }
+                    });
+//                    BmobSMS.requestSMSCode(phone, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
+//                        @Override
+//                        public void done(Integer integer, BmobException e) {
+//                            loadingDialog.dissmiss();
+//                            if (e == null){
+//                                BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
+//                                btnCountTimer.start();
+//                                Snackbar.make(tvGetCode,"The Code Is Sending！",Snackbar.LENGTH_SHORT).show();
+//
+//                            }else {
+//                                Log.i("Register.Log",e.getMessage());
+//                            }
+//                        }
+//                    });
                 }else {
-                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
                     loadingDialog.dissmiss();
+                    MdDialog.showDialog(CodeLoginActivity.this,"The Mobile Isn't Register,Are You Want To Register Now?","Tip:", ActivityTypes.CODELOGIN_ATY);
                 }
             }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
+                loadingDialog.dissmiss();
+            }
         });
+//        query.findObjectsByTable(new QueryListener<JSONArray>() {
+//            @Override
+//            public void done(JSONArray jsonArray, BmobException e) {
+//
+//                if (e == null){   //如果有数据则证明手机号码已经注册过了
+//                    if (jsonArray.length()>0){
+//                        BmobSMS.requestSMSCode(phone, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
+//                            @Override
+//                            public void done(Integer integer, BmobException e) {
+//                                loadingDialog.dissmiss();
+//                                if (e == null){
+//                                    BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
+//                                    btnCountTimer.start();
+//                                    Snackbar.make(tvGetCode,"The Code Is Sending！",Snackbar.LENGTH_SHORT).show();
+//
+//                                }else {
+//                                    Log.i("Register.Log",e.getMessage());
+//                                }
+//                            }
+//                        });
+//                    }else {
+//                        loadingDialog.dissmiss();
+//                        MdDialog.showDialog(CodeLoginActivity.this,"The Mobile Isn't Register,Are You Want To Register Now?","Tip:", ActivityTypes.CODELOGIN_ATY);
+//                    }
+//                }else {
+//                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
+//                    loadingDialog.dissmiss();
+//                }
+//            }
+//        });
 
 
     }
@@ -163,10 +211,9 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
             return;
         }
         loadingDialog.show();
-        BmobSMS.verifySmsCode(phone, code, new UpdateListener() {
+        BmobSMS.verifySmsCode(CodeLoginActivity.this, phone, code, new VerifySMSCodeListener() {
             @Override
             public void done(BmobException e) {
-                loadingDialog.dissmiss();
                 if (e == null){
                     UserInfoManager.getManager().saveUserInfo(CodeLoginActivity.this,phone,"",1);     //1代表是手机号码登录
                     Intent intent = new Intent(CodeLoginActivity.this, MainActivity.class);
@@ -179,6 +226,23 @@ public class CodeLoginActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         });
+
+//        BmobSMS.verifySmsCode(phone, code, new UpdateListener() {
+//            @Override
+//            public void done(BmobException e) {
+//                loadingDialog.dissmiss();
+//                if (e == null){
+//                    UserInfoManager.getManager().saveUserInfo(CodeLoginActivity.this,phone,"",1);     //1代表是手机号码登录
+//                    Intent intent = new Intent(CodeLoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    CodeLoginActivity.this.finish();
+//                }else {
+//
+//                    Snackbar.make(tvGetCode,"Login Failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+//                    Log.i("CodeLoginActivity.Log",e.getMessage());
+//                }
+//            }
+//        });
     }
 
 

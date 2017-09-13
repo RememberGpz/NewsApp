@@ -1,5 +1,6 @@
 package com.example.remember.newsapp.utils;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.text.Spannable;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.remember.newsapp.R;
 
-import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
  * Created by Administrator on 2017/9/8.
@@ -17,6 +17,7 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class BtnCountTimer  extends CountDownTimer {
         private TextView mTextView;
+    private Context context;
 
         /**
          * @param textView          The TextView
@@ -28,9 +29,10 @@ public class BtnCountTimer  extends CountDownTimer {
          * @param countDownInterval The interval along the way to receiver
          *                          {@link #onTick(long)} callbacks.
          */
-        public BtnCountTimer(TextView textView, long millisInFuture, long countDownInterval) {
+        public BtnCountTimer(Context context,TextView textView, long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
             this.mTextView = textView;
+            this.context = context;
         }
 
         @Override
@@ -51,7 +53,7 @@ public class BtnCountTimer  extends CountDownTimer {
              * http://blog.csdn.net/ah200614435/article/details/7914459
              */
             SpannableString spannableString = new SpannableString(mTextView.getText().toString());  //获取按钮上的文字
-            ForegroundColorSpan span = new ForegroundColorSpan(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+            ForegroundColorSpan span = new ForegroundColorSpan(context.getResources().getColor(R.color.colorPrimary));
             /**
              * public void setSpan(Object what, int start, int end, int flags) {
              * 主要是start跟end，start是起始位置,无论中英文，都算一个。

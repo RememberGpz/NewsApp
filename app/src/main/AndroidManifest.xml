@@ -104,10 +104,6 @@
             </intent-filter>
 
         </activity>
-        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
-        <meta-data android:name="Mob-AppKey" android:value="20dead698522f"/>
-        <meta-data android:name="Mob-AppSecret" android:value="29fbe6fa1bdc71cba60ba975c9cf69c4"/>
-
         <!--微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -116,20 +112,13 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-        <!--易信分享回调 -->
-        <activity
-            android:name=".yxapi.YXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait" />
 
-        <!-- 支付宝分享回调 -->
-        <activity
-            android:name=".apshare.ShareEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"/>
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data android:name="Mob-AppKey" android:value="20dead698522f"/>
+        <meta-data android:name="Mob-AppSecret" android:value="29fbe6fa1bdc71cba60ba975c9cf69c4"/>
+
+
+
 
     </application>
 

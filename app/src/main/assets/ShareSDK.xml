@@ -59,10 +59,8 @@
         SortId="1"
         AppKey="3342632976"
         AppSecret="9ad074acfdcd493e22f3a8697ddb5c3e"
+        RedirectUrl="http://www.sharesdk.cn"
         ShareByAppClient="true"
-		ShareByWebApi = "true"
-		isNewAPi="true"
-		RedirectUrl="http://www.sharesdk.cn"
         Enable="true" />
 
     <TencentWeibo
@@ -76,8 +74,8 @@
     <QZone
         Id="3"
         SortId="3"
-        AppId="1106405922"
-        AppKey="ozSL2lerqVqbcFKu"
+        AppId="100371282"
+        AppKey="aed9b0303e3ed1e27bae87c33761161d"
 		BypassApproval="true"
         Enable="true" />
     
@@ -97,24 +95,26 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wxdb0f7a71c883b423"
-        AppSecret="daecf556b42463ce11c2421f9570cac7"
-        BypassApproval="true"
+        AppId="wx45db5a74da0cc36a"
+        AppSecret="d08110131c0ddf9b5cc82b62a27c62c2"
+		userName="gh_afb25ac019c9"
+		path="pages/index/index.html?id=1"
+        BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wxdb0f7a71c883b423"
-        AppSecret="daecf556b42463ce11c2421f9570cac7"
-        BypassApproval="true"
+        AppId="wx45db5a74da0cc36a"
+        AppSecret="d08110131c0ddf9b5cc82b62a27c62c2"
+        BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wxdb0f7a71c883b423"
-        AppSecret="daecf556b42463ce11c2421f9570cac7"
+        AppId="wx45db5a74da0cc36a"
+        AppSecret="d08110131c0ddf9b5cc82b62a27c62c2"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
@@ -356,19 +356,7 @@
         SortId="39"
         AppId="107704292745179"
         Enable="true" />
-    
-     <Alipay
-        Id="50"
-        SortId="50"  
-        AppId="2015072400185895"
-        Enable="true"/>
-     
-     <AlipayMoments
-        Id="51"
-        SortId="51"  
-        AppId="2015072400185895"
-        Enable="true"/>
-     
+
      <Dingding
         Id="52"
         SortId="52"

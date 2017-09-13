@@ -11,7 +11,6 @@ import com.example.remember.newsapp.utils.Utility;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.squareup.okhttp.internal.framed.FrameReader;
 
 import org.litepal.crud.DataSupport;
 

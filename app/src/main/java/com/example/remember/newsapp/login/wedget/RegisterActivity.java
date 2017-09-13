@@ -32,9 +32,11 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.VerifySMSCodeListener;
 
 
 /**
@@ -175,37 +177,70 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         BmobQuery query = new BmobQuery("User");              //进行手机号码进行查询，判断该手机号码是否已经被注册
         query.addWhereEqualTo("phoneNum",phoneNum);
         query.order("createdAt");
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
+        query.findObjects(this, new FindCallback() {
             @Override
-            public void done(JSONArray jsonArray, BmobException e) {
-
-                if (e == null){   //如果有数据则证明手机号码已经注册过了
-                    if (jsonArray.length()>0){
-                        loadingDialog.dissmiss();
-                        Snackbar.make(tvGetCode,"This Mobile Has Registered！",Snackbar.LENGTH_SHORT).show();
-                    }else if (jsonArray.length()<=0){
-                        BmobSMS.requestSMSCode(phoneNum, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
-                            @Override
-                            public void done(Integer integer, BmobException e) {
-                                loadingDialog.dissmiss();
-                                if (e == null){
-                                    BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
-                                    btnCountTimer.start();
-                                    Snackbar.make(tvGetCode,"The Code Was Send！",Snackbar.LENGTH_SHORT).show();
-
-                                }else {
-
-                                    Log.i("Register.Log",e.getMessage());
-                                }
-                            }
-                        });
-                    }
-                }else {
-                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
+            public void onSuccess(JSONArray jsonArray) {
+                //如果有数据则证明手机号码已经注册过了
+                if (jsonArray.length()>0){
                     loadingDialog.dissmiss();
+                    Snackbar.make(tvGetCode,"This Mobile Has Registered！",Snackbar.LENGTH_SHORT).show();
+                }else if (jsonArray.length()<=0){
+                    BmobSMS.requestSMSCode(RegisterActivity.this, phoneNum, "注册验证码", new RequestSMSCodeListener() {
+                        @Override
+                        public void done(Integer integer, BmobException e) {
+                            loadingDialog.dissmiss();
+                            if (e == null){
+                                BtnCountTimer btnCountTimer = new BtnCountTimer(RegisterActivity.this,tvGetCode,60*1000,1000);
+                                btnCountTimer.start();
+                                Snackbar.make(tvGetCode,"The Code Was Send！",Snackbar.LENGTH_SHORT).show();
+
+                            }else {
+
+                                Log.i("Register.Log", e.getMessage());
+                            }
+                        }
+                    });
+
                 }
             }
+
+            @Override
+            public void onFailure(int i, String s) {
+                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
+                    loadingDialog.dissmiss();
+            }
         });
+//        query.findObjectsByTable(new QueryListener<JSONArray>() {
+//            @Override
+//            public void done(JSONArray jsonArray, BmobException e) {
+//
+//                if (e == null){   //如果有数据则证明手机号码已经注册过了
+//                    if (jsonArray.length()>0){
+//                        loadingDialog.dissmiss();
+//                        Snackbar.make(tvGetCode,"This Mobile Has Registered！",Snackbar.LENGTH_SHORT).show();
+//                    }else if (jsonArray.length()<=0){
+//                        BmobSMS.requestSMSCode(phoneNum, "注册验证码", new QueryListener<Integer>() {  //如果没有数据则发送验证码
+//                            @Override
+//                            public void done(Integer integer, BmobException e) {
+//                                loadingDialog.dissmiss();
+//                                if (e == null){
+//                                    BtnCountTimer btnCountTimer = new BtnCountTimer(tvGetCode,60*1000,1000);
+//                                    btnCountTimer.start();
+//                                    Snackbar.make(tvGetCode,"The Code Was Send！",Snackbar.LENGTH_SHORT).show();
+//
+//                                }else {
+//
+//                                    Log.i("Register.Log",e.getMessage());
+//                                }
+//                            }
+//                        });
+//                    }
+//                }else {
+//                    Snackbar.make(tvGetCode,"Query Failed！",Snackbar.LENGTH_SHORT).show();
+//                    loadingDialog.dissmiss();
+//                }
+//            }
+//        });
 
 
     }
@@ -241,16 +276,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         BmobQuery query = new BmobQuery("User");
         query.addWhereEqualTo("name",name);
         query.order("createdAt");
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
+        query.findObjects(this, new FindCallback() {
             @Override
-            public void done(JSONArray jsonArray, BmobException e) {
-                if (e == null){
-                    if (jsonArray.length()>0) {
+            public void onSuccess(JSONArray jsonArray) {
+                if (jsonArray.length()>0) {
                         Snackbar.make(tvRegister, "The UserName Is Exist~", Snackbar.LENGTH_SHORT).show();
                         loadingDialog.dissmiss();
                     }
                     else if (jsonArray.length()==0){
-                        BmobSMS.verifySmsCode(phoneNum, code, new UpdateListener() {
+                        BmobSMS.verifySmsCode(RegisterActivity.this, phoneNum, code, new VerifySMSCodeListener() {
                             @Override
                             public void done(BmobException e) {
                                 if (e==null){
@@ -258,16 +292,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     user.setName(name);
                                     user.setPassword(password);
                                     user.setPhoneNum(phoneNum);
-                                    user.save(new SaveListener<String>() {
+                                    user.save(RegisterActivity.this, new SaveListener() {
                                         @Override
-                                        public void done(String s, BmobException e) {
+                                        public void onSuccess() {
+                                            MdDialog.showDialog(RegisterActivity.this,"Register Successful! Go To Login?","Tip:", ActivityTypes.REGISTER_ATY);
                                             loadingDialog.dissmiss();
-                                            if (e==null){
-                                                MdDialog.showDialog(RegisterActivity.this,"Register Successful! Go To Login?","Tip:", ActivityTypes.REGISTER_ATY);
-                                            }else {
-                                                Snackbar.make(tvRegister,"Register Failed！",Snackbar.LENGTH_SHORT).show();
-                                                Log.i("Register.Log",e.getMessage());
-                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(int i, String s) {
+                                            Snackbar.make(tvRegister,"Register Failed！",Snackbar.LENGTH_SHORT).show();
+                                            loadingDialog.dissmiss();
                                         }
                                     });
 
@@ -278,15 +313,61 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }
                             }
                         });
-                    }
 
-                }else{
-                    loadingDialog.dissmiss();
-                    Snackbar.make(tvRegister,"Register Failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
-                }
+                    }
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
 
             }
         });
+//        query.findObjectsByTable(new QueryListener<JSONArray>() {
+//            @Override
+//            public void done(JSONArray jsonArray, BmobException e) {
+//                if (e == null){
+//                    if (jsonArray.length()>0) {
+//                        Snackbar.make(tvRegister, "The UserName Is Exist~", Snackbar.LENGTH_SHORT).show();
+//                        loadingDialog.dissmiss();
+//                    }
+//                    else if (jsonArray.length()==0){
+//                        BmobSMS.verifySmsCode(phoneNum, code, new UpdateListener() {
+//                            @Override
+//                            public void done(BmobException e) {
+//                                if (e==null){
+//                                    User user = new User();
+//                                    user.setName(name);
+//                                    user.setPassword(password);
+//                                    user.setPhoneNum(phoneNum);
+//                                    user.save(new SaveListener<String>() {
+//                                        @Override
+//                                        public void done(String s, BmobException e) {
+//                                            loadingDialog.dissmiss();
+//                                            if (e==null){
+//                                                MdDialog.showDialog(RegisterActivity.this,"Register Successful! Go To Login?","Tip:", ActivityTypes.REGISTER_ATY);
+//                                            }else {
+//                                                Snackbar.make(tvRegister,"Register Failed！",Snackbar.LENGTH_SHORT).show();
+//                                                Log.i("Register.Log",e.getMessage());
+//                                            }
+//                                        }
+//                                    });
+//
+//                                }else {
+//                                    Snackbar.make(tvRegister,"The Code Is Error！",Snackbar.LENGTH_SHORT).show();
+//                                    loadingDialog.dissmiss();
+//                                    Log.i("Register.Log",e.getMessage());
+//                                }
+//                            }
+//                        });
+//                    }
+//
+//                }else{
+//                    loadingDialog.dissmiss();
+//                    Snackbar.make(tvRegister,"Register Failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
 
 
 

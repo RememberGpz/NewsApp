@@ -26,7 +26,7 @@ import org.json.JSONException;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.FindCallback;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
@@ -140,52 +140,89 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final BmobQuery query = new BmobQuery("User");
         query.addWhereEqualTo("name",name1);
         query.order("createdAt");
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
+        query.findObjects(this, new FindCallback() {
             @Override
-            public void done(JSONArray jsonArray, BmobException e) {
-            if (e == null){
-
-                    Log.i("111---", "  -------");
-                    Log.i("111---","共 " + jsonArray.length() +"条数据");
-                if (jsonArray.length()>0) {
+            public void onSuccess(JSONArray jsonArray) {
+                Log.i("111---", "共 " + jsonArray.length() + "条数据");
+                if (jsonArray.length() > 0) {
                     loadingDialog.dissmiss();
-                      //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
-                    type=0;
-                    isTruePassword(jsonArray,password,name1);
-
-                }else {  //如果通过用户名没有查找到，则通过手机号码再查一遍
-                    queryPhone(name1,password);
+                    //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
+                    type = 0;
+                    isTruePassword(jsonArray, password, name1);
                 }
-             }else {
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
                 loadingDialog.dissmiss();
                 Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
-                Log.i("Login.Log",e.getMessage());
             }
-                }
         });
+//        query.findObjectsByTable(new QueryListener<JSONArray>() {
+//            @Override
+//            public void done(JSONArray jsonArray, BmobException e) {
+//            if (e == null){
+//
+//                    Log.i("111---", "  -------");
+//                    Log.i("111---","共 " + jsonArray.length() +"条数据");
+//                if (jsonArray.length()>0) {
+//                    loadingDialog.dissmiss();
+//                      //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
+//                    type=0;
+//                    isTruePassword(jsonArray,password,name1);
+//
+//                }else {  //如果通过用户名没有查找到，则通过手机号码再查一遍
+//                    queryPhone(name1,password);
+//                }
+//             }else {
+//                loadingDialog.dissmiss();
+//                Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+//                Log.i("Login.Log",e.getMessage());
+//            }
+//                }
+//        });
     }
 
     private void queryPhone(final String phone, final String password){
         BmobQuery query = new BmobQuery("User");
         query.addWhereEqualTo("phoneNum",phone);
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
+        query.findObjects(LoginActivity.this, new FindCallback() {
             @Override
-            public void done(JSONArray jsonArray, BmobException e) {
-                if (e == null){
-                    if (jsonArray.length()>0){  //如果有数据则说明该手机号码有注册，继续判断密码是否正确
-                        type =1;
-                        isTruePassword(jsonArray,password,phone);
+            public void onSuccess(JSONArray jsonArray) {
+                if (jsonArray.length()>0){  //如果有数据则说明该手机号码有注册，继续判断密码是否正确
+                    type =1;
+                    isTruePassword(jsonArray,password,phone);
 
-                    }else {
-                        loadingDialog.dissmiss();
-                        Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();
-                    }
                 }else {
                     loadingDialog.dissmiss();
-                    Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();
                 }
             }
+
+            @Override
+            public void onFailure(int i, String s) {
+                loadingDialog.dissmiss();
+                Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+            }
         });
+//        query.findObjectsByTable(new QueryListener<JSONArray>() {
+//            @Override
+//            public void done(JSONArray jsonArray, BmobException e) {
+//                if (e == null){
+//                    if (jsonArray.length()>0){  //如果有数据则说明该手机号码有注册，继续判断密码是否正确
+//                        type =1;
+//                        isTruePassword(jsonArray,password,phone);
+//
+//                    }else {
+//                        loadingDialog.dissmiss();
+//                        Snackbar.make(tvCodeLogin,"User Doesn't Exist！",Snackbar.LENGTH_SHORT).show();
+//                    }
+//                }else {
+//                    loadingDialog.dissmiss();
+//                    Snackbar.make(tvCodeLogin,"Login failed！Please Try Again",Snackbar.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     private void isTruePassword(JSONArray jsonArray,String password,String phone){

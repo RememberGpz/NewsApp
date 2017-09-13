@@ -142,24 +142,22 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 // 执行图文分享
                             qzone.share(sp);
                         }else if(item.get("ItemText").equals("WeChat")){
-                            Log.i("about.Log","有执行");
                             Platform.ShareParams sp = new Platform.ShareParams();
-//                            sp.setTitle("微信分享");
-//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+                            sp.setTitle("完成任务");
                             sp.setText("NewsApp");
-//                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-                            sp.setShareType(Platform.SHARE_TEXT);
+                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                            sp.setShareType(Platform.SHARE_IMAGE);
                             Platform weChat = ShareSDK.getPlatform (Wechat.NAME);
                             weChat.setPlatformActionListener(AboutActivity.this);
                             weChat.share(sp);
 
                         }else if(item.get("ItemText").equals("Moments")) {
                             Platform.ShareParams sp = new Platform.ShareParams();
-//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
-//                            sp.setTitle("标题");
+                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+                            sp.setTitle("完成任务");
                             sp.setText("NewsApp");
-//                            sp.setImageData(BitmapFactory.decodeResource(getResources(),R.drawable.aboutme_bg));
-                            sp.setShareType(Platform.SHARE_TEXT);
+                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                            sp.setShareType(Platform.SHARE_WEBPAGE);
                             Platform moments = ShareSDK.getPlatform (WechatMoments.NAME);
                             moments.setPlatformActionListener(AboutActivity.this);
                             moments.share(sp);

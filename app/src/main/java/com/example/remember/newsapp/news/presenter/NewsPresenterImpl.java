@@ -89,6 +89,6 @@ public class NewsPresenterImpl implements NewsPresenter {
                 url.append(Urls.COMMON_URL).append(Urls.JOKE_ID);
                 break;
         }
-        return url.append(pagerIndex).append(20 + ".html").toString();
+        return url.append("/"+pagerIndex).append("-20" + ".html").toString();
     }
 }
