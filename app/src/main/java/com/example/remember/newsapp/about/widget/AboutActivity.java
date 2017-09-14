@@ -152,15 +152,15 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                             weChat.share(sp);
 
                         }else if(item.get("ItemText").equals("Moments")) {
-                            Platform.ShareParams sp = new Platform.ShareParams();
-                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
-                            sp.setTitle("完成任务");
-                            sp.setText("NewsApp");
-                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-                            sp.setShareType(Platform.SHARE_WEBPAGE);
-                            Platform moments = ShareSDK.getPlatform (WechatMoments.NAME);
-                            moments.setPlatformActionListener(AboutActivity.this);
-                            moments.share(sp);
+//                            Platform.ShareParams sp = new Platform.ShareParams();
+//                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");
+//                            sp.setTitle("完成任务");
+//                            sp.setText("NewsApp");
+//                            sp.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+//                            sp.setShareType(Platform.SHARE_WEBPAGE);
+//                            Platform moments = ShareSDK.getPlatform (WechatMoments.NAME);
+//                            moments.setPlatformActionListener(AboutActivity.this);
+//                            moments.share(sp);
                         }else if(item.get("ItemText").equals("Weibo")) {
                             Platform.ShareParams sp = new Platform.ShareParams();
 //                            sp.setUrl("https://github.com/RememberGpz/NewsApp/blob/master/README.md");

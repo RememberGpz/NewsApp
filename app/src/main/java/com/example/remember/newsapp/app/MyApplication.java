@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MyApplication extends MobApplication {
+public class MyApplication extends com.mob.MobApplication {
     private List<Activity> activityList  = new LinkedList<Activity>();
     private static MyApplication myApplication;
 
