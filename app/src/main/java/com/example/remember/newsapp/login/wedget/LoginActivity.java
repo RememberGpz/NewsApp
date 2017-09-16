@@ -24,16 +24,23 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.HashMap;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindCallback;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.tencent.qq.QQ;
 
 /**
  * Created by Remember on 2017/9/4.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,PlatformActionListener{
     private Toolbar toolbar;
     private TextView login,register,tvCodeLogin;
     private MaterialEditText metName,metPassword;
@@ -106,7 +113,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.iv_qq:
-                showShare();
+                type = 3;
+                otherLogin(QQ.NAME);
+                break;
 
         }
     }
@@ -149,6 +158,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //如果是登录所需要查询则进行如下逻辑 ，-》判断密码
                     type = 0;
                     isTruePassword(jsonArray, password, name1);
+                }else{
+                    queryPhone(name1,password);
                 }
             }
 
@@ -241,6 +252,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
+    }
+
+
+    private void otherLogin(String name){
+        Platform platform = ShareSDK.getPlatform(name);
+        platform.setPlatformActionListener(LoginActivity.this);
+        platform.authorize();
+        platform.showUser(null);
+    }
+
+    //第三方登录后的回调
+
+    @Override
+    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        PlatformDb db = platform.getDb();
+        String name=db.getUserId();
+        UserInfoManager.getManager().saveUserInfo(this,name,"",type);  //3代表第三方登录,只需要传userName
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
+    }
+
+    @Override
+    public void onError(Platform platform, int i, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(Platform platform, int i) {
+
     }
 
     @Override

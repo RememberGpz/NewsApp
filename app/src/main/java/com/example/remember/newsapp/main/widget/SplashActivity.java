@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
         imageView = (ImageView)findViewById(R.id.iv_splash);
         AlphaAnimation animation = new AlphaAnimation(0.4f,1.0f);
-        animation.setDuration(3000);
+        animation.setDuration(2000);
         imageView.setAnimation(animation);
         imageView.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {

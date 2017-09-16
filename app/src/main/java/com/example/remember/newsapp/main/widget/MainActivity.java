@@ -196,6 +196,13 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 }
             }).start();
 
+        }else if(type ==2){
+            if (!TextUtils.isEmpty(userName)){
+                Log.i("MainActivity.Log","执行了type ==0");
+                tvName.setText(userName);
+            }else {
+                Snackbar.make(tvName,"Data Error!",Snackbar.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -254,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                     list.clear();
                     Log.i("MainActivity==",String.valueOf(list.size()));
                 }
-                exit();
+                MyApplication.getInstance().removeAllAty();
             }else {
                 currentTime = System.currentTimeMillis();
                 Snackbar.make(dl,"Press Again Exit App",Snackbar.LENGTH_SHORT).show();
