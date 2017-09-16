@@ -49,6 +49,10 @@
 
 ![分享到微信](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/share_to_wechat.gif  ) 
 
+*qq登录，由于微信登录需要付费，微博需要app审核。所以暂时没有实现*
+
+![qq登录](https://github.com/RememberGpz/NewsApp/blob/master/shootscreen/qq_login.gif  ) 
+
 </br></br></br>
 
 ***

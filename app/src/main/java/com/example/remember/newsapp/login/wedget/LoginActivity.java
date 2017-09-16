@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.iv_qq:
-                type = 3;
+                type = 2;
                 otherLogin(QQ.NAME);
                 break;
 
@@ -267,8 +267,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         PlatformDb db = platform.getDb();
-        String name=db.getUserId();
-        UserInfoManager.getManager().saveUserInfo(this,name,"",type);  //3代表第三方登录,只需要传userName
+        String name=db.getUserName();
+        Log.i("Login.log",name);
+        UserInfoManager.getManager().saveUserInfo(this,name,"",type);  //2代表第三方登录,只需要传userName
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -277,12 +278,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-
+        Snackbar.make(tvCodeLogin,"Login Error！",Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-
+        Snackbar.make(tvCodeLogin,"Cancel Login！",Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
