@@ -88,5 +88,21 @@ public class Utility {
         return false;
     }
 
+    public static String handleDetailNews(String response,String docid){
+        if (response!=null){
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONObject jsonObject1 = jsonObject.getJSONObject(docid);
+                String content = jsonObject1.getString("body");
+                return content;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return null;
+    }
 
 }

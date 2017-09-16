@@ -88,7 +88,10 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
         public void onItemClick(View view, int position) {
             News news = newsListAdapter.getItem(position);
             Intent intent = new Intent(getActivity(), DetailActivity.class);
-//            intent.putExtra("news", news);
+            intent.putExtra("title",news.getTitle());
+            intent.putExtra("docid",news.getDocId());
+            intent.putExtra("imgsrc",news.getImgsrc());
+            startActivity(intent);
 
         }
     };

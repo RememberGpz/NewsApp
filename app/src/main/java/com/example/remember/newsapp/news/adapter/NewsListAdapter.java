@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Remember on 2017/9/2.
  */
 
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
+public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> implements View.OnClickListener{
 
     private List<News> news = new ArrayList<>();
     private Context context;
@@ -37,6 +37,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     @Override
     public NewsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_newslist,null);
+        view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
@@ -45,8 +46,16 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     }
 
     @Override
+    public void onClick(View view) {
+        if (itemOnClicklistener!=null){
+            itemOnClicklistener.onItemClick(view,(int)view.getTag());
+        }
+    }
+
+    @Override
     public void onBindViewHolder(NewsListAdapter.ViewHolder holder, int position) {
         News news1 = news.get(position);
+        holder.itemView.setTag(position);
         holder.tv_newslist_title .setText(news1.getTitle());
         holder.tv_newslist_source.setText(news1.getSource());
         holder.tv_newslist_time.setText(news1.getMtime());
@@ -58,7 +67,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     }
 
     public interface ItemOnClicklistener{
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     @Override
