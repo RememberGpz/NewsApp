@@ -72,6 +72,10 @@
         <activity android:name=".news.widget.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+        //图片详情页
+        <activity android:name=".picture.widget.PicturePageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.StatusBar"/>
 
 
 
