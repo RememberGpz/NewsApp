@@ -18,6 +18,7 @@ import org.litepal.crud.DataSupport;
  */
 
 public class Utility {
+    //使用okhtt时使用的方法，改成retrofit后摒弃了
     public static boolean handleImageJson(String response){  //把请求回来的json数据解析成对象
         try {
             if (response!=null){
@@ -28,13 +29,13 @@ public class Utility {
                 for (int i=0;i<jsonArray.length();i++){
                     Picture picture = new Picture();
                     jsonObject = jsonArray.getJSONObject(i);
-                    picture.setUrl(jsonObject.getString("url"));
-                    picture.setTitle(jsonObject.getString("title"));
-                    picture.setHeight(jsonObject.getString("height"));
-                    picture.setWidth(jsonObject.getString("width"));
-                    picture.setSourceurl(jsonObject.getString("sourceurl"));
-                    picture.setThumburl(jsonObject.getString("thumburl"));
-                    picture.save();
+//                    picture.setUrl(jsonObject.getString("url"));
+//                    picture.setTitle(jsonObject.getString("title"));
+//                    picture.setHeight(jsonObject.getString("height"));
+//                    picture.setWidth(jsonObject.getString("width"));
+//                    picture.setSourceurl(jsonObject.getString("sourceurl"));
+//                    picture.setThumburl(jsonObject.getString("thumburl"));
+//                    picture.save();
                 }
                 return true;
             }

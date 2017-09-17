@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by Remember on 2017/9/1.
+ * 使用okhttp时使用的类
  */
 
 public class PicturePresenterImpl implements PicturePresenter{
@@ -43,7 +44,7 @@ public class PicturePresenterImpl implements PicturePresenter{
                     pictureFragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            pictureFragment.addPicture(pictures);
+//                            pictureFragment.addPicture(pictures);
                         }
                     });
                 }else {
