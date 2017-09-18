@@ -13,12 +13,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
+import java.util.List;
+
 /**
  * Created by Remember on 2017/9/1.
  */
 
 public class Utility {
-    //使用okhtt时使用的方法，改成retrofit后摒弃了
+    //使用okhtt时使用的方法，改成retrofit后摒弃了，改用savePicture方法
     public static boolean handleImageJson(String response){  //把请求回来的json数据解析成对象
         try {
             if (response!=null){
@@ -42,6 +44,19 @@ public class Utility {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public static boolean savePicture(List<Picture.ResultsBean> pictures){
+        if (pictures.size()>0){
+            for (int i=0;i<pictures.size();i++){
+                Picture picture= new Picture();
+                picture.setResults(pictures);
+                picture.save();
+            }
+            return true;
+        }
+
         return false;
     }
 

@@ -1,7 +1,9 @@
 package com.example.remember.newsapp.picture.widget;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,6 +25,9 @@ import com.example.remember.newsapp.picture.adapter.PictureAdapter;
 import com.example.remember.newsapp.picture.net.NewWord;
 import com.example.remember.newsapp.picture.presenter.PicturePresenterImpl;
 import com.example.remember.newsapp.picture.view.PictureView;
+import com.example.remember.newsapp.utils.Utility;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +45,7 @@ public class PictureFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private SwipeRefreshLayout srl_picture;
     private RecyclerView rv_picture;
     private PictureAdapter pictureAdapter;
-    private List<Picture> mPictures = new ArrayList<>();
+    private List<Picture.ResultsBean> mPictures = new ArrayList<>();
     private StaggeredGridLayoutManager staggeredGLM;
     private PicturePresenterImpl picturePresenterImpl;
     private int contentNum = 10;
@@ -55,6 +60,7 @@ public class PictureFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture,null);
+        mPictures = DataSupport.find(Picture.class,0).getResults();
         srl_picture = (SwipeRefreshLayout)view.findViewById(R.id.srl_picture);
         rv_picture = (RecyclerView)view.findViewById(R.id.rv_picture);
         srl_picture.setColorSchemeResources(R.color.colorPrimary);
@@ -68,8 +74,15 @@ public class PictureFragment extends Fragment implements SwipeRefreshLayout.OnRe
         pictureAdapter.setOnItemClickListener(new PictureAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(),PicturePageActivity.class);
-                startActivity(intent);
+                Intent intent = PicturePageActivity.launch(getActivity(),position);
+                if (Build.VERSION.SDK_INT>=22){
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(getActivity(),view.findViewById(R.id.iv_picture)
+                                    , mPictures.get(position).getUrl()).toBundle()
+                            );
+                }else {
+                    startActivity(intent);
+                }
             }
         });
 
@@ -107,6 +120,7 @@ public class PictureFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onResponse(Call<Picture> call, Response<Picture> response) {
                 List<Picture.ResultsBean> pictures= response.body().getResults();
+                Utility.savePicture(pictures);
                 pictureAdapter.setPicturesData(pictures);
                 srl_picture.setRefreshing(false);
             }

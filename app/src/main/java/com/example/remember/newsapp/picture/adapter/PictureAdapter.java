@@ -86,7 +86,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ItemView
     }
 
     public interface OnItemClickListener{
-        public void onItemClick(View view,int position);
+        void onItemClick(View view,int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){

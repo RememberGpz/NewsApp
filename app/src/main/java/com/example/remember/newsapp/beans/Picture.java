@@ -1,12 +1,14 @@
 package com.example.remember.newsapp.beans;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**
  * Created by Remember on 2017/9/1.
  */
 
-public class Picture{
+public class Picture extends DataSupport{
 
     /**
      * error : false

@@ -8,12 +8,11 @@
     <include layout="@layout/toolbar_picture"
         android:id="@+id/tb_picture"/>
 
-    <com.example.remember.newsapp.widget.HackyViewPager
-        android:id="@+id/hackyVP"
-        android:overScrollMode="never"
+    <ImageView
+        android:id="@+id/iv_picture_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.example.remember.newsapp.widget.HackyViewPager>
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
 
 </LinearLayout>
