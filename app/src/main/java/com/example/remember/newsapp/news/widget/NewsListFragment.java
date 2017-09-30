@@ -2,6 +2,7 @@ package com.example.remember.newsapp.news.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import com.example.remember.newsapp.beans.newsbeans.News;
 import com.example.remember.newsapp.news.adapter.NewsListAdapter;
 import com.example.remember.newsapp.news.presenter.NewsPresenterImpl;
 import com.example.remember.newsapp.news.view.NewsView;
+import com.example.remember.newsapp.widget.RefleshRecyclerView;
 
 import org.litepal.crud.DataSupport;
 
@@ -32,7 +34,7 @@ import java.util.List;
 
 public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshLayout.OnRefreshListener{
 
-    private RecyclerView rv_news ;
+    private RefleshRecyclerView rrv;
     public SwipeRefreshLayout srl_news;
     private List<News> newses = new ArrayList<>();
     private NewsPresenterImpl newsPresenterImpl;
@@ -58,17 +60,31 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_newslist,null);
-        rv_news = (RecyclerView)view.findViewById(R.id.rv_news);
+        rrv = (RefleshRecyclerView)view.findViewById(R.id.rrv);
         srl_news = (SwipeRefreshLayout)view.findViewById(R.id.srl_news);
         srl_news.setColorSchemeResources(R.color.colorPrimary);
         srl_news.setOnRefreshListener(this);          //一定要为swipeReflreshLayout设置监听器，不然下拉后，setRelreshing(false)为无效；
         layoutManager = new LinearLayoutManager(getActivity());
         newsPresenterImpl = new NewsPresenterImpl(this);
-        rv_news.setLayoutManager(layoutManager);
-        rv_news.addOnScrollListener(mOnScrollListener);
+        rrv.setEnabled(true);
+        rrv.setLoadMoreListner(new RefleshRecyclerView.LoadMoreListner() {
+            @Override
+            public void onLoadMoreLister() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rrv.loadMoreComplete();
+                    }
+                },1500);
+            }
+        });
+        rrv.setFooterResource(R.layout.item_rrv_footer);
+        rrv.setLayoutManager(layoutManager);
+        rrv.isLoadEnable(true);
+        rrv.addOnScrollListener(mOnScrollListener);
         newsListAdapter = new NewsListAdapter(getContext());
         newsListAdapter.setItemOnClicklistener(itemOnClicklistener);
-        rv_news.setAdapter(newsListAdapter);
+        rrv.setAdapter(newsListAdapter);
         onRefresh();
         return view;
     }
@@ -79,7 +95,7 @@ public class NewsListFragment extends Fragment implements NewsView,SwipeRefreshL
             newses = new ArrayList<>();
         }
         newses.clear();
-        newses = newsList;
+        newses.addAll(newsList);
         newsListAdapter.setData(newses);
     }
 

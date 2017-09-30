@@ -54,6 +54,7 @@ dependencies {
     compile 'com.squareup.okio:okio:1.4.0'
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.1'  //recyclerView 的动画
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.0'

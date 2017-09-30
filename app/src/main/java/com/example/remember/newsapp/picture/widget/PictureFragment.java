@@ -60,7 +60,9 @@ public class PictureFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture,null);
-        mPictures = DataSupport.find(Picture.class,0).getResults();
+        if(DataSupport.find(Picture.class,0)!=null){
+            mPictures = DataSupport.find(Picture.class,0).getResults();
+        }
         srl_picture = (SwipeRefreshLayout)view.findViewById(R.id.srl_picture);
         rv_picture = (RecyclerView)view.findViewById(R.id.rv_picture);
         srl_picture.setColorSchemeResources(R.color.colorPrimary);

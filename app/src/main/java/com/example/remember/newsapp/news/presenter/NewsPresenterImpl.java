@@ -54,10 +54,11 @@ public class NewsPresenterImpl implements NewsPresenter {
 
             @Override
             public void onResponse(Response response) throws IOException {
-                Log.i("NewsPresenterImpl-----","news == null!!!!");
+
 //                News news = Utility.handleNews(response.body().string());
 
                 if (Utility.handleNews(response.body().string(),type)){
+                    Log.i("NewsPresenterImpl-----",response.body().string());
                     final List<News>  newses = DataSupport.where("type=?",type+"").find(News.class);
                     newsListFragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
